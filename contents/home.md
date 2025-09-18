@@ -11,6 +11,8 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 #### Education
 
 **Nanjing University**, undergraduate student(**junior**)
+
+
 • GPA（专业课）： 4.62
 
 · Rank：2/17
