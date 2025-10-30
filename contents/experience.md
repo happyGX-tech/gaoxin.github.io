@@ -1,5 +1,3 @@
----
-
 ### **"A Novel Navigation Control Method for Inspection Robots in Complex Scenarios" Project**
 
 **September 2024 – November 2025 | Supervised by Professor Chen Chunlin**
