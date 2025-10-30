@@ -1,17 +1,21 @@
-### **"Novel Navigation Control Method for Inspection Robots in Complex Scenarios" Project**
+---
 
-**September 2024 – November 2025 | Supervised by Prof. Chen Chunlin**
+### **"A Novel Navigation Control Method for Inspection Robots in Complex Scenarios" Project**
 
-Responsible for the implementation and application of SLAM algorithms and navigation frameworks for inspection robots, focusing on achieving full autonomous movement of the robot in ROS simulation environments. Participated in the application of deep reinforcement learning algorithms in the navigation framework and optimized the navigation framework process to enhance obstacle avoidance performance in complex scenarios.
+**September 2024 – November 2025 | Supervised by Professor Chen Chunlin**
+
+Responsible for the implementation and application of SLAM algorithms and navigation frameworks for inspection robots, focusing on achieving the full process of autonomous mobile robot navigation within a ROS simulation environment. Participated in integrating deep reinforcement learning algorithms into the navigation framework, and optimized the navigation workflow to enhance obstacle avoidance performance in complex scenarios using reinforcement learning methods.
 
 #### Key Contributions:
 
-- Built the environment world in ROS simulation and implemented the SLAM and move_base navigation framework.
-- Analyzed and compared the performance of different SLAM and path planning algorithms, using simulation data to optimize the robot's navigation performance.
-- Independently reproduced high-performance SLAM algorithms such as R3live.
-- Collaborated with team members to complete a literature review.
+* Constructed simulation environments in ROS and implemented SLAM along with the move_base navigation framework.
+* Analyzed and compared the performance of various SLAM and path planning algorithms; utilized simulation data to evaluate and optimize robot navigation performance.
+* Independently reproduced high-performance SLAM algorithms such as R3LIVE, and collaborated with team members to reproduce reinforcement learning algorithms from research papers in the simulation environment, conducting performance comparisons.
+* Collaborated with team members to complete a literature review paper.
 
 ---
+
+
 
 ### **“复杂场景下巡检机器人导航控制新方法”项目实训**
 
