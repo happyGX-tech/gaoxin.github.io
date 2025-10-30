@@ -17,4 +17,4 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 
 #### Interests in Study
 
-Automation | SLAM | RL | Data Processing | Big Data | Optimization |
+Automation | RL | Data Processing and Analysis | SLAM | Optimization |
