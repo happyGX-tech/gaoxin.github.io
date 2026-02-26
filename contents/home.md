@@ -12,9 +12,9 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 
 **Nanjing University**, undergraduate student(junior)
 
-* GPA（专业课）： 4.62
+* GPA（专业课）： 4.64
 * Rank：2/17
 
 #### Interests in Study
 
-Automation | RL | Data Processing and Analysis | SLAM | Optimization |
+Automation | RL | Safe RL | Data Mining | Optimization |
