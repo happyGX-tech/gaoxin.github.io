@@ -97,7 +97,6 @@ section .main-body{
     font-weight: 420;
     line-height: 1.95;
     color: var(--h-text-color);
-    max-width: 58rem;
 }
 
 .main-body h3,
@@ -130,6 +129,58 @@ section .main-body{
 
 .main-body strong {
     color: #193552;
+}
+
+#experience-md .experience-item {
+    border: 1px solid rgba(31, 63, 102, 0.18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 8px 18px rgba(20, 36, 56, 0.08);
+    margin-bottom: 0.95rem;
+    overflow: hidden;
+}
+
+#experience-md .experience-summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 0.9rem 1.05rem;
+    font-family: "Newsreader", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    color: var(--h-title-color);
+    font-size: 1.16rem;
+    letter-spacing: 0.01em;
+    background: linear-gradient(90deg, rgba(31, 63, 102, 0.08), rgba(143, 106, 43, 0.05));
+    border-left: 3px solid var(--h-accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#experience-md .experience-summary::-webkit-details-marker {
+    display: none;
+}
+
+#experience-md .experience-summary::after {
+    content: "+";
+    color: var(--h-accent-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 1rem;
+}
+
+#experience-md .experience-item[open] .experience-summary::after {
+    content: "-";
+}
+
+#experience-md .experience-content {
+    padding: 0.9rem 1.15rem 1.1rem;
+}
+
+#experience-md .experience-content > :first-child {
+    margin-top: 0;
+}
+
+#experience-md .experience-content h4 {
+    margin-top: 1rem;
 }
 
 #home > .container,
