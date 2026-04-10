@@ -19,7 +19,7 @@
 
 ### **"Reinforcement Learning and Embodied Intelligence Research Practice"**
 
-**November 2025 – Present | Supervised by Professor Yuan Lei, RL Lab, LAMDA, Nanjing University**
+**November 2025 – Present | Supervised by Doctor Yuan Lei, RL Lab, LAMDA, Nanjing University**
 
 Participating in research training at RL Lab, LAMDA, School of Artificial Intelligence, Nanjing University. The work focuses on safe decision-making and generalization in complex real-world settings, spanning safe RL, multi-agent RL, and embodied intelligence.
 
