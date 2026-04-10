@@ -1,6 +1,6 @@
 ### **“强化学习与具身智能科研实践”科研实训**
 
-**2025年11月 – 至今 | 袁雷老师指导，南京大学LAMDA实验室RL Lab**
+**2025年11月 – 至今 | 南京大学LAMDA RL Lab**
 
 在南京大学人工智能学院LAMDA实验室RL Lab进行科研实训，围绕安全强化学习、多智能体强化学习与具身智能相关问题开展系统研究，重点关注智能体在复杂真实场景中的安全性与泛化能力。
 
@@ -19,7 +19,7 @@
 
 #### **"Reinforcement Learning and Embodied Intelligence Research Practice"**
 
-**November 2025 – Present | Supervised by Doctor Yuan Lei, RL Lab, LAMDA, Nanjing University**
+**November 2025 – Present | RL Lab, LAMDA, Nanjing University**
 
 Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decision-making and generalization in real-world embodied settings.
 
@@ -38,7 +38,7 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 
 ### **“大规模数据智能分析与可视化”科研实训**
 
-**2025年9月 – 2025年12月 | 徐科老师指导，南京大学智能科学与技术学院**
+**2025年9月 – 2025年12月 | 南京大学智能科学与技术学院**
 
 在南京大学智能科学与技术学院开展数据智能方向科研实践，面向大规模数据分析任务进行数据挖掘与可视化方法研究，重点探索基于视觉感知的先进采样策略在数据可视化中的应用。
 
@@ -52,7 +52,7 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 
 #### **"Large-Scale Data Intelligence Analysis and Visualization" Research Practice"**
 
-**September 2025 – December 2025 | Supervised by Professor Xu Ke, School of Intelligence Science and Technology, Nanjing University**
+**September 2025 – December 2025 |School of Intelligence Science and Technology, Nanjing University**
 
 Research practice on large-scale data mining and visualization, with emphasis on visual-perception-based sampling methods.
 
@@ -66,7 +66,7 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 ### **“复杂场景导航控制新方法”项目实训**
 
-**2024年9月 – 2025年11月 | 陈春林老师指导**
+**2024年9月 – 2025年11月 | 南京大学工程管理学院**
 
 负责巡检机器人SLAM算法与导航框架实现与复用，在ROS仿真环境下完成巡检机器人自主移动全流程。参与将深度强化学习引入导航框架并优化系统流程，以提升复杂场景下的导航避障效果。
 
@@ -80,7 +80,7 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 #### **"A Novel Navigation Control Method in Complex Scenarios" Project**
 
-**September 2024 – November 2025 | Supervised by Professor Chen Chunlin**
+**September 2024 – November 2025 | School of Management and Engineering, Nanjing University**
 
 Implemented and reused SLAM and navigation frameworks for inspection robots, and completed a full autonomous navigation pipeline in ROS simulation.
 
