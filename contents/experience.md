@@ -17,7 +17,7 @@
 
 ---
 
-### **"Reinforcement Learning and Embodied Intelligence Research Practice"**
+#### **"Reinforcement Learning and Embodied Intelligence Research Practice"**
 
 **November 2025 – Present | Supervised by Doctor Yuan Lei, RL Lab, LAMDA, Nanjing University**
 
@@ -50,7 +50,7 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 
 ---
 
-### **"Large-Scale Data Intelligence Analysis and Visualization" Research Practice**
+#### **"Large-Scale Data Intelligence Analysis and Visualization" Research Practice"**
 
 **September 2025 – December 2025 | Supervised by Professor Xu Ke, School of Intelligence Science and Technology, Nanjing University**
 
@@ -78,7 +78,7 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 ---
 
-### **"A Novel Navigation Control Method in Complex Scenarios" Project**
+#### **"A Novel Navigation Control Method in Complex Scenarios" Project**
 
 **September 2024 – November 2025 | Supervised by Professor Chen Chunlin**
 
