@@ -2,16 +2,56 @@
 
 
 :root{
-    --h-title-color:#3948d2;
+    --h-title-color:#1f3f66;
+    --h-accent-color:#8f6a2b;
+    --h-text-color:#1d2733;
+    --h-muted-color:#5f6b78;
+    --h-paper:#fcfbf7;
+    --h-paper-edge:#e6e0d4;
 }
 
 .header {
-    border-bottom: solid 2px var(--bs-blue);
+    border-bottom: solid 1px rgba(31, 63, 102, 0.24);
+    background: rgba(252, 251, 247, 0.94);
+    backdrop-filter: blur(10px);
     z-index: 10000;
 }
 
+body {
+    font-family: "Source Sans 3", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    color: var(--h-text-color);
+    background:
+        radial-gradient(circle at 8% 12%, rgba(143, 106, 43, 0.08), transparent 32%),
+        radial-gradient(circle at 82% 16%, rgba(31, 63, 102, 0.08), transparent 36%),
+        linear-gradient(180deg, #f8f7f3 0%, #f4f3ef 100%);
+}
+
+.navbar-brand {
+    color: var(--h-title-color) !important;
+    letter-spacing: 0.04em;
+}
+
+.nav-link {
+    color: var(--h-text-color) !important;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--h-title-color) !important;
+}
+
+.nav-link.active {
+    color: var(--h-title-color) !important;
+    text-decoration: underline;
+    text-underline-offset: 0.35em;
+    text-decoration-thickness: 0.12em;
+}
+
 .bg-bottom {
-    background-color: var(--h-title-color);
+    background: linear-gradient(120deg, #1f3f66 0%, #385c86 100%);
 }
 
 .top-section {
@@ -38,29 +78,80 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(120deg, rgba(10, 25, 42, 0.72) 10%, rgba(34, 58, 87, 0.56) 90%);
 }
 
 section header h2{
-    font-family: "Kanit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    font-family: "Newsreader", "Noto Serif SC", "Source Han Serif SC", Georgia, serif !important;
     color: var(--h-title-color);
-    font-size: 2.3rem;
-    line-height: 4rem;
+    font-size: clamp(1.75rem, 2.4vw, 2.35rem);
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid var(--h-accent-color);
+    padding-left: 0.75rem;
 }
 
 section .main-body{
-    font-size: 1.3rem;
-    font-weight: 200;
-    line-height: 2.4rem;
+    font-size: clamp(1.02rem, 1.5vw, 1.12rem);
+    font-weight: 420;
+    line-height: 1.95;
+    color: var(--h-text-color);
+    max-width: 58rem;
+}
+
+.main-body h3,
+.main-body h4 {
+    font-family: "Newsreader", "Noto Serif SC", "Source Han Serif SC", Georgia, serif;
+    color: var(--h-title-color);
+    margin-top: 1.9rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.02em;
+}
+
+.main-body p,
+.main-body li {
+    color: var(--h-text-color);
+}
+
+.main-body ul {
+    padding-left: 1.45rem;
+}
+
+.main-body li::marker {
+    color: var(--h-accent-color);
+}
+
+.main-body hr {
+    border-top: 1px solid var(--h-paper-edge);
+    opacity: 1;
+    margin: 1.7rem 0;
+}
+
+.main-body strong {
+    color: #193552;
+}
+
+section .container {
+    background: linear-gradient(180deg, rgba(252, 251, 247, 0.78), rgba(248, 246, 241, 0.7));
+    border: 1px solid rgba(230, 224, 212, 0.7);
+    border-radius: 16px;
+    box-shadow: 0 14px 36px rgba(17, 26, 39, 0.08);
+    padding-top: 1.8rem;
+    padding-bottom: 1.2rem;
 }
 
 
 .bg-gradient-primary-to-secondary-light {
-    background: linear-gradient(45deg, #fcfcfc, #ffffff) !important;
+    background: linear-gradient(180deg, #f6f4ee 0%, #f2efe7 100%) !important;
 }
 
 .bg-gradient-primary-to-secondary-gray {
-    background: linear-gradient(45deg, #f0f0f0, #f1f1f1) !important;
+    background: linear-gradient(180deg, #efede7 0%, #e8e4db 100%) !important;
+}
+
+.bg-gradient-primary-to-secondary-dark {
+    background: linear-gradient(180deg, #f3f1eb 0%, #ece8de 100%) !important;
 }
 
 
@@ -100,12 +191,22 @@ section .main-body{
 
 #avatar img {
     height: max(130px,min(200px,calc(100vw/6)));
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    border: 4px solid rgba(252, 251, 247, 0.95);
+    box-shadow: 0 14px 28px rgba(19, 35, 55, 0.22);
 }
 
 @media screen and (max-width: 991px) {
     #avatar {
         margin: 0;
+    }
+
+    section .container {
+        border-radius: 12px;
+        padding-top: 1.2rem;
+    }
+
+    section header h2 {
+        margin-bottom: 0.9rem;
     }
 }
 
