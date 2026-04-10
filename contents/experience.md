@@ -21,7 +21,7 @@
 
 **November 2025 – Present | Supervised by Doctor Yuan Lei, RL Lab, LAMDA, Nanjing University**
 
-Participating in research training at RL Lab, LAMDA, School of Artificial Intelligence, Nanjing University. The work focuses on safe decision-making and generalization in complex real-world settings, spanning safe RL, multi-agent RL, and embodied intelligence.
+Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decision-making and generalization in real-world embodied settings.
 
 #### Key Research Directions:
 
@@ -31,8 +31,8 @@ Participating in research training at RL Lab, LAMDA, School of Artificial Intell
 
 #### Key Work:
 
-* Algorithm study and improvement: conducted in-depth reading and group presentations on frontier Safe RL and Offline RL papers, reproduced and compared multi-agent cooperation algorithms as baselines, built an initial benchmark, and explored the use of generative models (e.g., Transformer and Diffusion Model) in safe multi-agent RL.
-* Embodied intelligence exploration: participated in literature pre-study on VLA and world models, investigated model architectures such as WAM and reported findings, and assisted with robot teleoperation data collection and simulation environment setup.
+* Studied and presented frontier Safe RL and Offline RL papers; reproduced multi-agent cooperation baselines and built an initial benchmark.
+* Explored generative models (Transformer, Diffusion) for safe multi-agent RL, and supported VLA/world-model pre-study, teleoperation data collection, and simulation setup.
 
 ---
 
@@ -54,13 +54,13 @@ Participating in research training at RL Lab, LAMDA, School of Artificial Intell
 
 **September 2025 – December 2025 | Supervised by Professor Xu Ke, School of Intelligence Science and Technology, Nanjing University**
 
-Conducted research practice on data intelligence, focusing on large-scale data mining and visualization. The project emphasized advanced visual-perception-based sampling methods for improving visualization quality and interpretability.
+Research practice on large-scale data mining and visualization, with emphasis on visual-perception-based sampling methods.
 
 #### Key Work:
 
-* Performed large-scale data mining and pattern analysis, covering the full pipeline from data processing to result interpretation.
-* Applied advanced visual-perception-based sampling methods for visualization modeling and empirical evaluation.
-* Contributed to paper writing, resulting in one submission to IEEE VIS 2026.
+* Completed end-to-end data mining and pattern analysis from preprocessing to interpretation.
+* Applied and evaluated advanced visual-perception-based sampling for visualization.
+* Contributed to a paper submission to IEEE VIS 2026.
 
 ---
 
@@ -82,10 +82,10 @@ Conducted research practice on data intelligence, focusing on large-scale data m
 
 **September 2024 – November 2025 | Supervised by Professor Chen Chunlin**
 
-Led the implementation and reuse of SLAM algorithms and navigation frameworks for inspection robots, and completed the full autonomous navigation pipeline in ROS simulation. Participated in integrating deep reinforcement learning into the navigation framework and optimizing workflow design for better obstacle avoidance in complex environments.
+Implemented and reused SLAM and navigation frameworks for inspection robots, and completed a full autonomous navigation pipeline in ROS simulation.
 
 #### Key Contributions:
 
-* System architecture: built a ROS-based robotic simulation system and established a closed-loop pipeline from mapping to autonomous obstacle avoidance.
-* Algorithm optimization: introduced reinforcement learning methods for dynamic-obstacle scenarios and significantly improved obstacle-avoidance success rates in Gazebo simulations.
-* Performance comparison: conducted a systematic comparison between RL-based and conventional methods for local obstacle avoidance, and completed a review report to support subsequent algorithm selection.
+* Built a ROS-based closed-loop pipeline from mapping to autonomous obstacle avoidance.
+* Introduced RL methods for dynamic-obstacle scenarios and improved avoidance success rates in Gazebo.
+* Compared RL and conventional methods for local obstacle avoidance and completed a review report for method selection.
