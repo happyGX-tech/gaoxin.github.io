@@ -18,4 +18,4 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 
 #### Interests in Study
 
-Automation | RL | Safe RL | MARL | VLA |Data Mining | Optimization |
+Automation | RL | VLA | Optimization |
