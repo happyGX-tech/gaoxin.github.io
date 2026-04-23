@@ -269,6 +269,344 @@ function initTilt() {
     targets.forEach(attach);
 }
 
+function initRlViz() {
+    if (prefersReducedMotion()) {
+        return;
+    }
+    const host = document.getElementById('rl-viz');
+    if (!host || host.dataset.bound === '1') {
+        return;
+    }
+    host.dataset.bound = '1';
+
+    // Build DOM
+    const card = document.createElement('div');
+    card.className = 'rl-viz-card';
+
+    const head = document.createElement('div');
+    head.className = 'rl-viz-head';
+
+    const title = document.createElement('div');
+    title.className = 'rl-viz-title';
+    title.textContent = 'Embodied RL Rollout (Toy)';
+
+    const meta = document.createElement('div');
+    meta.className = 'rl-viz-meta';
+    meta.textContent = 'Click: set Goal · Move: observe value field';
+
+    head.appendChild(title);
+    head.appendChild(meta);
+
+    const body = document.createElement('div');
+    body.className = 'rl-viz-body';
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'rl-viz-canvas';
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Interactive embodied RL rollout visualization');
+
+    const legend = document.createElement('div');
+    legend.className = 'rl-viz-legend';
+    legend.innerHTML = [
+        '<span><span class="rl-viz-dot agent"></span>Agent</span>',
+        '<span><span class="rl-viz-dot goal"></span>Goal</span>',
+        '<span><span class="rl-viz-dot traj"></span>Trajectory</span>',
+        '<span><span class="rl-viz-dot obs"></span>Obstacles</span>',
+        '<span>Heatmap: Value \u2248 -distance(goal)</span>'
+    ].join('');
+
+    body.appendChild(canvas);
+    body.appendChild(legend);
+    card.appendChild(head);
+    card.appendChild(body);
+    host.appendChild(card);
+
+    // Simulation
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) {
+        return;
+    }
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+
+    const state = {
+        w: 0,
+        h: 0,
+        cols: 64,
+        rows: 36,
+        agent: { x: 0.15, y: 0.70, vx: 0, vy: 0 },
+        goal: { x: 0.80, y: 0.30 },
+        traj: [],
+        obstacles: [],
+        mouse: { x: -1, y: -1 }
+    };
+
+    // Obstacles: deterministic layout with a few "walls"
+    const buildObstacles = () => {
+        const obs = [];
+        // vertical wall
+        obs.push({ x: 0.46, y: 0.10, w: 0.03, h: 0.62 });
+        // horizontal wall
+        obs.push({ x: 0.18, y: 0.52, w: 0.46, h: 0.035 });
+        // small blocks
+        obs.push({ x: 0.72, y: 0.56, w: 0.06, h: 0.09 });
+        obs.push({ x: 0.63, y: 0.20, w: 0.05, h: 0.07 });
+        return obs;
+    };
+    state.obstacles = buildObstacles();
+
+    const resize = () => {
+        const r = canvas.getBoundingClientRect();
+        const w = Math.max(420, Math.floor(r.width));
+        const h = Math.floor(w * 9 / 16);
+        canvas.width = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        canvas.style.width = `${w}px`;
+        canvas.style.height = `${h}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        state.w = w;
+        state.h = h;
+        // scale grid to keep nice cell sizes
+        state.cols = Math.max(56, Math.min(96, Math.floor(w / 11)));
+        state.rows = Math.max(32, Math.min(54, Math.floor(h / 11)));
+    };
+
+    const clamp01 = (v) => Math.max(0, Math.min(1, v));
+    const inRect = (p, rect) => (p.x >= rect.x && p.x <= rect.x + rect.w && p.y >= rect.y && p.y <= rect.y + rect.h);
+
+    const project = (x, y) => ({ x: x * state.w, y: y * state.h });
+    const unproject = (x, y) => ({ x: x / state.w, y: y / state.h });
+
+    const obstacleDistance = (p) => {
+        // Signed-ish distance: positive outside, negative inside
+        let minD = Infinity;
+        for (const o of state.obstacles) {
+            const cx = Math.max(o.x, Math.min(p.x, o.x + o.w));
+            const cy = Math.max(o.y, Math.min(p.y, o.y + o.h));
+            const dx = p.x - cx;
+            const dy = p.y - cy;
+            const d = Math.hypot(dx, dy);
+            if (inRect(p, o)) {
+                minD = Math.min(minD, -d);
+            } else {
+                minD = Math.min(minD, d);
+            }
+        }
+        return minD;
+    };
+
+    const valueAt = (p, goal) => {
+        // value ~= -distance(goal) with obstacle penalty
+        const dg = Math.hypot(p.x - goal.x, p.y - goal.y);
+        const dob = obstacleDistance(p);
+        const penalty = dob < 0.02 ? (0.06 - dob) * 2.0 : 0;
+        return -(dg + penalty);
+    };
+
+    const drawHeatmap = () => {
+        const cw = state.w / state.cols;
+        const ch = state.h / state.rows;
+        for (let iy = 0; iy < state.rows; iy++) {
+            for (let ix = 0; ix < state.cols; ix++) {
+                const px = (ix + 0.5) / state.cols;
+                const py = (iy + 0.5) / state.rows;
+                const v = valueAt({ x: px, y: py }, state.goal); // negative
+                // Normalize by distance range
+                const d = Math.min(1, Math.max(0, (-v) / 1.25));
+                const t = 1 - d;
+                // academic palette: blue -> paper
+                const a = 0.30;
+                const r = Math.round(244 + (31 - 244) * t);
+                const g = Math.round(243 + (63 - 243) * t);
+                const b = Math.round(239 + (102 - 239) * t);
+                ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
+                ctx.fillRect(ix * cw, iy * ch, Math.ceil(cw + 0.5), Math.ceil(ch + 0.5));
+            }
+        }
+    };
+
+    const drawObstacles = () => {
+        ctx.save();
+        ctx.fillStyle = 'rgba(29, 39, 51, 0.12)';
+        ctx.strokeStyle = 'rgba(29, 39, 51, 0.22)';
+        ctx.lineWidth = 1;
+        state.obstacles.forEach(o => {
+            const p = project(o.x, o.y);
+            ctx.fillRect(p.x, p.y, o.w * state.w, o.h * state.h);
+            ctx.strokeRect(p.x + 0.5, p.y + 0.5, o.w * state.w - 1, o.h * state.h - 1);
+        });
+        ctx.restore();
+    };
+
+    const drawGoalAgentTraj = () => {
+        // trajectory
+        ctx.save();
+        ctx.strokeStyle = 'rgba(31, 63, 102, 0.35)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        state.traj.forEach((p, i) => {
+            const s = project(p.x, p.y);
+            if (i === 0) ctx.moveTo(s.x, s.y);
+            else ctx.lineTo(s.x, s.y);
+        });
+        ctx.stroke();
+        ctx.restore();
+
+        // goal
+        const g = project(state.goal.x, state.goal.y);
+        ctx.save();
+        ctx.fillStyle = 'rgba(31, 63, 102, 0.92)';
+        ctx.beginPath();
+        ctx.arc(g.x, g.y, 7.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+        ctx.beginPath();
+        ctx.arc(g.x, g.y, 3.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+
+        // agent
+        const a = project(state.agent.x, state.agent.y);
+        ctx.save();
+        ctx.fillStyle = 'rgba(143, 106, 43, 0.92)';
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, 8.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(a.x + state.agent.vx * state.w * 0.12, a.y + state.agent.vy * state.h * 0.12);
+        ctx.stroke();
+        ctx.restore();
+    };
+
+    const drawGridFrame = () => {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(230, 224, 212, 0.9)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(0.5, 0.5, state.w - 1, state.h - 1);
+        ctx.restore();
+    };
+
+    const step = (dt) => {
+        // simplified policy: follow value gradient with obstacle repulsion
+        const p = { x: state.agent.x, y: state.agent.y };
+        const eps = 0.0045;
+
+        const v0 = valueAt(p, state.goal);
+        const vx = valueAt({ x: clamp01(p.x + eps), y: p.y }, state.goal) - v0;
+        const vy = valueAt({ x: p.x, y: clamp01(p.y + eps) }, state.goal) - v0;
+
+        // gradient ascent on value (since value is negative distance, this moves toward goal)
+        let gx = vx / eps;
+        let gy = vy / eps;
+
+        // repulsion from obstacles
+        const dob = obstacleDistance(p);
+        if (dob < 0.10) {
+            // approximate obstacle normal by sampling
+            const d0 = obstacleDistance(p);
+            const dx = obstacleDistance({ x: clamp01(p.x + eps), y: p.y }) - d0;
+            const dy = obstacleDistance({ x: p.x, y: clamp01(p.y + eps) }) - d0;
+            const nx = dx / eps;
+            const ny = dy / eps;
+            const s = (0.10 - dob) * 3.2;
+            gx += nx * s;
+            gy += ny * s;
+        }
+
+        // normalize + smooth dynamics
+        const gnorm = Math.hypot(gx, gy) || 1;
+        gx /= gnorm; gy /= gnorm;
+
+        const speed = 0.22; // units/sec
+        const ax = gx * speed;
+        const ay = gy * speed;
+
+        // low-pass velocity
+        const k = 0.18;
+        state.agent.vx = state.agent.vx * (1 - k) + ax * k;
+        state.agent.vy = state.agent.vy * (1 - k) + ay * k;
+
+        // integrate
+        state.agent.x = clamp01(state.agent.x + state.agent.vx * dt);
+        state.agent.y = clamp01(state.agent.y + state.agent.vy * dt);
+
+        // collision: if inside obstacle, push back slightly
+        if (obstacleDistance({ x: state.agent.x, y: state.agent.y }) < 0) {
+            state.agent.x = clamp01(state.agent.x - state.agent.vx * dt * 2.2);
+            state.agent.y = clamp01(state.agent.y - state.agent.vy * dt * 2.2);
+            state.agent.vx *= 0.15;
+            state.agent.vy *= 0.15;
+        }
+
+        // record trajectory
+        state.traj.push({ x: state.agent.x, y: state.agent.y });
+        if (state.traj.length > 220) {
+            state.traj.shift();
+        }
+
+        // reset if reached goal
+        const dg = Math.hypot(state.agent.x - state.goal.x, state.agent.y - state.goal.y);
+        if (dg < 0.03) {
+            state.traj = [];
+            // small "respawn" drift to keep it alive
+            state.agent.x = 0.12 + Math.random() * 0.08;
+            state.agent.y = 0.72 + (Math.random() - 0.5) * 0.08;
+            state.agent.vx = 0;
+            state.agent.vy = 0;
+        }
+    };
+
+    let lastT = 0;
+    const render = (t) => {
+        const dtMs = Math.min(40, t - lastT);
+        lastT = t;
+        const dt = dtMs / 1000;
+
+        // background
+        ctx.fillStyle = 'rgb(252, 251, 247)';
+        ctx.fillRect(0, 0, state.w, state.h);
+
+        drawHeatmap();
+        drawObstacles();
+
+        // rollout step
+        step(dt);
+        drawGoalAgentTraj();
+        drawGridFrame();
+
+        requestAnimationFrame(render);
+    };
+
+    const setGoalFromEvent = (e) => {
+        const r = canvas.getBoundingClientRect();
+        const x = clamp01((e.clientX - r.left) / r.width);
+        const y = clamp01((e.clientY - r.top) / r.height);
+        // avoid placing goal inside obstacles
+        const g = { x, y };
+        if (obstacleDistance(g) < 0.02) {
+            return;
+        }
+        state.goal.x = g.x;
+        state.goal.y = g.y;
+        state.traj = [];
+    };
+
+    canvas.addEventListener('click', setGoalFromEvent);
+    canvas.addEventListener('mousemove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        const x = clamp01((e.clientX - r.left) / r.width);
+        const y = clamp01((e.clientY - r.top) / r.height);
+        state.mouse.x = x;
+        state.mouse.y = y;
+    }, { passive: true });
+
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+    requestAnimationFrame(render);
+}
+
 function buildExperienceAccordion() {
     const container = document.getElementById('experience-md');
     if (!container) {
@@ -408,6 +746,7 @@ window.addEventListener('DOMContentLoaded', event => {
                 MathJax.typeset();
                 initReveal();
                 initTilt();
+                initRlViz();
             })
             .catch(error => console.log(error));
     })
