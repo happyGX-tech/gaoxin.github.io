@@ -288,8 +288,8 @@ section .main-body {
 
 #avatar {
     position: absolute;
-    right: 0;
-    bottom: -138px;
+    right: clamp(1rem, 3vw, 2.25rem);
+    bottom: -110px;
     width: clamp(130px, 16vw, 210px);
     height: auto;
     float: none;
@@ -313,13 +313,13 @@ section .main-body {
 
 /* Leave space for the avatar overlap below the hero */
 #home {
-    padding-top: 7.0rem !important;
+    padding-top: 6.4rem !important;
 }
 
 @media screen and (max-width: 991px) {
     #avatar {
-        right: 0;
-        bottom: -120px;
+        right: 1rem;
+        bottom: -98px;
     }
 
     #home>.container,
