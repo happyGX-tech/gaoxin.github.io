@@ -234,41 +234,6 @@ function initHeroParallax() {
     update();
 }
 
-function initTilt() {
-    if (prefersReducedMotion()) {
-        return;
-    }
-    const targets = Array.from(document.querySelectorAll('#avatar img, #experience-md .experience-item'));
-    targets.forEach(el => el.classList.add('tilt'));
-
-    const attach = (el) => {
-        let rafId = 0;
-        let rx = 0, ry = 0;
-        const max = 6; // degrees
-
-        const apply = () => {
-            rafId = 0;
-            el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-1px)`;
-        };
-
-        el.addEventListener('mousemove', (e) => {
-            const r = el.getBoundingClientRect();
-            const px = (e.clientX - r.left) / r.width;
-            const py = (e.clientY - r.top) / r.height;
-            ry = (px - 0.5) * max * 2;
-            rx = -(py - 0.5) * max * 2;
-            if (!rafId) rafId = window.requestAnimationFrame(apply);
-        });
-
-        el.addEventListener('mouseleave', () => {
-            rx = 0; ry = 0;
-            el.style.transform = '';
-        });
-    };
-
-    targets.forEach(attach);
-}
-
 function initRlViz() {
     if (prefersReducedMotion()) {
         return;
@@ -288,11 +253,11 @@ function initRlViz() {
 
     const title = document.createElement('div');
     title.className = 'rl-viz-title';
-    title.textContent = 'Embodied RL Rollout (Toy)';
+    title.textContent = 'Embodied RL Navigation (Paper-style Toy)';
 
     const meta = document.createElement('div');
     meta.className = 'rl-viz-meta';
-    meta.textContent = 'Click: set Goal · Move: observe value field';
+    meta.textContent = 'Click: set Goal · Contours: value/occupancy · Metrics: success/steps/return';
 
     head.appendChild(title);
     head.appendChild(meta);
@@ -310,12 +275,20 @@ function initRlViz() {
     legend.innerHTML = [
         '<span><span class="rl-viz-dot agent"></span>Agent</span>',
         '<span><span class="rl-viz-dot goal"></span>Goal</span>',
-        '<span><span class="rl-viz-dot traj"></span>Trajectory</span>',
+        '<span><span class="rl-viz-dot traj"></span>Trajectory samples</span>',
         '<span><span class="rl-viz-dot obs"></span>Obstacles</span>',
-        '<span>Heatmap: Value \u2248 -distance(goal)</span>'
+        '<span>Contours: value \u2248 -distance(goal)</span>'
     ].join('');
 
     body.appendChild(canvas);
+    const metrics = document.createElement('div');
+    metrics.className = 'rl-viz-metrics';
+    metrics.innerHTML = [
+        '<div class="rl-metric"><span class="k">Success</span><span class="v" id="rl-m-sr">—</span></div>',
+        '<div class="rl-metric"><span class="k">Steps</span><span class="v" id="rl-m-steps">—</span></div>',
+        '<div class="rl-metric"><span class="k">Return</span><span class="v" id="rl-m-ret">—</span></div>',
+    ].join('');
+    body.appendChild(metrics);
     body.appendChild(legend);
     card.appendChild(head);
     card.appendChild(body);
@@ -337,7 +310,11 @@ function initRlViz() {
         goal: { x: 0.80, y: 0.30 },
         traj: [],
         obstacles: [],
-        mouse: { x: -1, y: -1 }
+        mouse: { x: -1, y: -1 },
+        epSteps: 0,
+        epReturn: 0,
+        episodes: [],
+        lastSuccess: null
     };
 
     // Obstacles: deterministic layout with a few "walls"
@@ -402,26 +379,103 @@ function initRlViz() {
         return -(dg + penalty);
     };
 
-    const drawHeatmap = () => {
-        const cw = state.w / state.cols;
-        const ch = state.h / state.rows;
-        for (let iy = 0; iy < state.rows; iy++) {
-            for (let ix = 0; ix < state.cols; ix++) {
-                const px = (ix + 0.5) / state.cols;
-                const py = (iy + 0.5) / state.rows;
-                const v = valueAt({ x: px, y: py }, state.goal); // negative
-                // Normalize by distance range
-                const d = Math.min(1, Math.max(0, (-v) / 1.25));
-                const t = 1 - d;
-                // academic palette: blue -> paper
-                const a = 0.30;
-                const r = Math.round(244 + (31 - 244) * t);
-                const g = Math.round(243 + (63 - 243) * t);
-                const b = Math.round(239 + (102 - 239) * t);
-                ctx.fillStyle = `rgba(${r},${g},${b},${a})`;
-                ctx.fillRect(ix * cw, iy * ch, Math.ceil(cw + 0.5), Math.ceil(ch + 0.5));
+    // Marching-squares style isolines (paper-style contour plot)
+    const drawValueContours = () => {
+        const cols = state.cols;
+        const rows = state.rows;
+        const cw = state.w / cols;
+        const ch = state.h / rows;
+
+        // sample distances at grid vertices (rows+1 x cols+1)
+        const dField = new Float32Array((rows + 1) * (cols + 1));
+        for (let y = 0; y <= rows; y++) {
+            for (let x = 0; x <= cols; x++) {
+                const px = x / cols;
+                const py = y / rows;
+                const v = valueAt({ x: px, y: py }, state.goal);
+                const d = -v; // distance-ish
+                dField[y * (cols + 1) + x] = d;
             }
         }
+
+        const levels = [];
+        for (let d = 0.20; d <= 1.20; d += 0.15) levels.push(d);
+
+        const interp = (x1, y1, v1, x2, y2, v2, level) => {
+            const t = (level - v1) / (v2 - v1 + 1e-6);
+            return { x: x1 + (x2 - x1) * t, y: y1 + (y2 - y1) * t };
+        };
+
+        ctx.save();
+        ctx.lineWidth = 1.25;
+        ctx.globalAlpha = 1;
+
+        levels.forEach((level, li) => {
+            const a = 0.18 + (li % 2) * 0.06;
+            ctx.strokeStyle = `rgba(31, 63, 102, ${a})`;
+            ctx.beginPath();
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const i00 = y * (cols + 1) + x;
+                    const i10 = i00 + 1;
+                    const i01 = i00 + (cols + 1);
+                    const i11 = i01 + 1;
+
+                    const v00 = dField[i00];
+                    const v10 = dField[i10];
+                    const v01 = dField[i01];
+                    const v11 = dField[i11];
+
+                    const p00 = { x: x * cw, y: y * ch };
+                    const p10 = { x: (x + 1) * cw, y: y * ch };
+                    const p01 = { x: x * cw, y: (y + 1) * ch };
+                    const p11 = { x: (x + 1) * cw, y: (y + 1) * ch };
+
+                    const c0 = v00 < level;
+                    const c1 = v10 < level;
+                    const c2 = v11 < level;
+                    const c3 = v01 < level;
+                    const code = (c0 ? 1 : 0) | (c1 ? 2 : 0) | (c2 ? 4 : 0) | (c3 ? 8 : 0);
+                    if (code === 0 || code === 15) continue;
+
+                    const e = [];
+                    // edges: 0 top(00-10), 1 right(10-11), 2 bottom(01-11), 3 left(00-01)
+                    if (c0 !== c1) e.push(interp(p00.x, p00.y, v00, p10.x, p10.y, v10, level));
+                    if (c1 !== c2) e.push(interp(p10.x, p10.y, v10, p11.x, p11.y, v11, level));
+                    if (c3 !== c2) e.push(interp(p01.x, p01.y, v01, p11.x, p11.y, v11, level));
+                    if (c0 !== c3) e.push(interp(p00.x, p00.y, v00, p01.x, p01.y, v01, level));
+
+                    if (e.length === 2) {
+                        ctx.moveTo(e[0].x, e[0].y);
+                        ctx.lineTo(e[1].x, e[1].y);
+                    } else if (e.length === 4) {
+                        // ambiguous case: draw two segments
+                        ctx.moveTo(e[0].x, e[0].y);
+                        ctx.lineTo(e[1].x, e[1].y);
+                        ctx.moveTo(e[2].x, e[2].y);
+                        ctx.lineTo(e[3].x, e[3].y);
+                    }
+                }
+            }
+
+            ctx.stroke();
+        });
+
+        ctx.restore();
+    };
+
+    const drawOccupancyContours = () => {
+        // emphasize obstacle boundaries like occupancy contours
+        ctx.save();
+        ctx.strokeStyle = 'rgba(29, 39, 51, 0.35)';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([4, 4]);
+        state.obstacles.forEach(o => {
+            const p = project(o.x, o.y);
+            ctx.strokeRect(p.x + 1, p.y + 1, o.w * state.w - 2, o.h * state.h - 2);
+        });
+        ctx.restore();
     };
 
     const drawObstacles = () => {
@@ -438,17 +492,18 @@ function initRlViz() {
     };
 
     const drawGoalAgentTraj = () => {
-        // trajectory
+        // trajectory samples (paper style)
         ctx.save();
-        ctx.strokeStyle = 'rgba(31, 63, 102, 0.35)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        state.traj.forEach((p, i) => {
+        const every = 6;
+        for (let i = 0; i < state.traj.length; i += every) {
+            const p = state.traj[i];
             const s = project(p.x, p.y);
-            if (i === 0) ctx.moveTo(s.x, s.y);
-            else ctx.lineTo(s.x, s.y);
-        });
-        ctx.stroke();
+            const alpha = Math.max(0.06, Math.min(0.32, i / Math.max(1, state.traj.length) * 0.32));
+            ctx.fillStyle = `rgba(31, 63, 102, ${alpha})`;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+        }
         ctx.restore();
 
         // goal
@@ -546,11 +601,31 @@ function initRlViz() {
             state.traj.shift();
         }
 
+        state.epSteps += 1;
+        state.epReturn += valueAt({ x: state.agent.x, y: state.agent.y }, state.goal);
+
         // reset if reached goal
         const dg = Math.hypot(state.agent.x - state.goal.x, state.agent.y - state.goal.y);
         if (dg < 0.03) {
+            state.episodes.push(true);
+            if (state.episodes.length > 20) state.episodes.shift();
+            state.lastSuccess = true;
             state.traj = [];
-            // small "respawn" drift to keep it alive
+            state.epSteps = 0;
+            state.epReturn = 0;
+            // respawn
+            state.agent.x = 0.12 + Math.random() * 0.08;
+            state.agent.y = 0.72 + (Math.random() - 0.5) * 0.08;
+            state.agent.vx = 0;
+            state.agent.vy = 0;
+        } else if (state.epSteps > 520) {
+            // timeout episode
+            state.episodes.push(false);
+            if (state.episodes.length > 20) state.episodes.shift();
+            state.lastSuccess = false;
+            state.traj = [];
+            state.epSteps = 0;
+            state.epReturn = 0;
             state.agent.x = 0.12 + Math.random() * 0.08;
             state.agent.y = 0.72 + (Math.random() - 0.5) * 0.08;
             state.agent.vx = 0;
@@ -568,13 +643,28 @@ function initRlViz() {
         ctx.fillStyle = 'rgb(252, 251, 247)';
         ctx.fillRect(0, 0, state.w, state.h);
 
-        drawHeatmap();
+        drawValueContours();
         drawObstacles();
+        drawOccupancyContours();
 
         // rollout step
         step(dt);
         drawGoalAgentTraj();
         drawGridFrame();
+
+        // metrics
+        const srEl = metrics.querySelector('#rl-m-sr');
+        const stEl = metrics.querySelector('#rl-m-steps');
+        const rtEl = metrics.querySelector('#rl-m-ret');
+        if (srEl && stEl && rtEl) {
+            const n = state.episodes.length;
+            const s = state.episodes.reduce((acc, v) => acc + (v ? 1 : 0), 0);
+            const sr = n ? (s / n) : 0;
+            srEl.textContent = n ? `${Math.round(sr * 100)}% (${s}/${n})` : '—';
+            stEl.textContent = `${state.epSteps}`;
+            const pret = state.epSteps ? (state.epReturn / state.epSteps) : 0;
+            rtEl.textContent = state.epSteps ? `${pret.toFixed(3)}` : '—';
+        }
 
         requestAnimationFrame(render);
     };
@@ -591,6 +681,8 @@ function initRlViz() {
         state.goal.x = g.x;
         state.goal.y = g.y;
         state.traj = [];
+        state.epSteps = 0;
+        state.epReturn = 0;
     };
 
     canvas.addEventListener('click', setGoalFromEvent);
@@ -745,7 +837,6 @@ window.addEventListener('DOMContentLoaded', event => {
                 // MathJax
                 MathJax.typeset();
                 initReveal();
-                initTilt();
                 initRlViz();
             })
             .catch(error => console.log(error));
