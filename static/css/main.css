@@ -36,38 +36,6 @@ body>.container {
     z-index: 1;
 }
 
-/* Lightweight academic visual effects (opt-in via JS; respects reduced motion) */
-#fx-canvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.35;
-}
-
-#fx-spotlight {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.75;
-    background:
-        radial-gradient(480px circle at var(--mx, 50vw) var(--my, 20vh),
-            rgba(143, 106, 43, 0.10),
-            rgba(31, 63, 102, 0.08) 35%,
-            transparent 60%);
-    transition: opacity 240ms ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #fx-canvas,
-    #fx-spotlight {
-        display: none !important;
-    }
-}
-
 .navbar-brand {
     color: var(--h-title-color) !important;
     letter-spacing: 0.04em;
@@ -103,7 +71,6 @@ body>.container {
     background-size: cover;
     height: 25rem;
     background-attachment: scroll;
-    transform: translateZ(0);
 }
 
 .top-section h2 {
@@ -136,16 +103,7 @@ body>.container {
     background: linear-gradient(120deg, rgba(10, 25, 42, 0.72) 10%, rgba(34, 58, 87, 0.56) 90%);
 }
 
-.top-section:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -1px;
-    height: 90px;
-    background: linear-gradient(180deg, rgba(244, 243, 239, 0) 0%, rgba(244, 243, 239, 1) 100%);
-    pointer-events: none;
-}
+/* removed: top-section fade overlay (was covering avatar overlap in some layouts) */
 
 section header h2 {
     font-family: "Newsreader", "Noto Serif SC", "Source Han Serif SC", Georgia, serif !important;
@@ -264,50 +222,18 @@ section .main-body {
     background: linear-gradient(180deg, rgba(252, 251, 247, 0.78), rgba(248, 246, 241, 0.7));
     border: 1px solid rgba(230, 224, 212, 0.7);
     border-radius: 16px;
-    box-shadow: var(--h-elev-1);
+    box-shadow: 0 14px 30px rgba(17, 26, 39, 0.07);
     padding-top: 1.8rem;
     padding-bottom: 1.2rem;
-    position: relative;
-    overflow: hidden;
-}
-
-#home>.container::before,
-#experience>.container::before,
-#awards>.container::before,
-#publications>.container::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(900px circle at 10% 0%, rgba(143, 106, 43, 0.10), transparent 55%),
-        radial-gradient(900px circle at 95% 20%, rgba(31, 63, 102, 0.10), transparent 60%),
-        repeating-linear-gradient(
-            135deg,
-            rgba(31, 63, 102, 0.035) 0px,
-            rgba(31, 63, 102, 0.035) 1px,
-            transparent 1px,
-            transparent 10px
-        );
-    opacity: 0.55;
-    pointer-events: none;
-}
-
-#home>.container>*,
-#experience>.container>*,
-#awards>.container>*,
-#publications>.container>* {
-    position: relative;
-    z-index: 1;
 }
 
 #experience-md .experience-item {
     box-shadow: 0 10px 22px rgba(20, 36, 56, 0.09);
     transform: translateZ(0);
-    transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+    transition: box-shadow 220ms ease, border-color 220ms ease;
 }
 
 #experience-md .experience-item:hover {
-    transform: translateY(-2px);
     box-shadow: var(--h-elev-2);
     border-color: rgba(31, 63, 102, 0.28);
 }
@@ -319,38 +245,7 @@ section .main-body {
         linear-gradient(180deg, rgba(255, 255, 255, 0.90), rgba(255, 255, 255, 0.82));
 }
 
-/* Subtle 3D tilt targets (applied via JS) */
-.tilt {
-    transform-style: preserve-3d;
-    will-change: transform;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    #experience-md .experience-item:hover {
-        transform: none;
-        box-shadow: var(--h-elev-1);
-    }
-}
-/* Scroll reveal (IntersectionObserver adds .is-visible) */
-.reveal {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 520ms ease, transform 520ms ease;
-    will-change: opacity, transform;
-}
-
-.reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .reveal {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-    }
-}
+/* removed: tilt / reveal effects */
 
 
 .bg-gradient-primary-to-secondary-light {
@@ -397,7 +292,7 @@ section .main-body {
     max-width: 55em;
     margin: 0 1.5rem 0 0;
     float: right;
-    z-index: 9000;
+    z-index: 10002;
 }
 
 #avatar img {
