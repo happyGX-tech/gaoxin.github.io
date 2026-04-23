@@ -289,7 +289,7 @@ section .main-body {
 
 #avatar {
     position: absolute;
-    right: 3rem;
+    right: clamp(4rem, 10vw, 8rem);
     bottom: -110px;
     width: clamp(130px, 16vw, 210px);
     height: auto;
@@ -319,7 +319,7 @@ section .main-body {
 
 @media screen and (max-width: 991px) {
     #avatar {
-        right: 3rem;
+        right: clamp(2rem, 6vw, 4rem);
         bottom: -98px;
     }
 
