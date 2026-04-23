@@ -71,6 +71,7 @@ body>.container {
     background-size: cover;
     height: 25rem;
     background-attachment: scroll;
+    overflow: visible;
 }
 
 .top-section h2 {
@@ -286,17 +287,18 @@ section .main-body {
 
 
 #avatar {
-    position: relative;
-    height: 0;
-    top: min(-65px, max(-100px, calc(-1*100vw/12)));
-    max-width: 55em;
-    margin: 0 1.5rem 0 0;
-    float: right;
+    position: absolute;
+    right: 1.5rem;
+    bottom: -72px;
+    width: clamp(130px, 16vw, 210px);
+    height: auto;
+    float: none;
+    margin: 0;
     z-index: 10002;
 }
 
 #avatar img {
-    width: clamp(130px, 16vw, 210px);
+    width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
@@ -304,17 +306,20 @@ section .main-body {
     border: 4px solid rgba(252, 251, 247, 0.95);
     box-shadow: 0 14px 28px rgba(19, 35, 55, 0.22);
     object-fit: cover;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: box-shadow 0.25s ease;
 }
 
-#avatar img:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 20px 38px rgba(19, 35, 55, 0.3);
+/* Removed hover lift to avoid "遮挡/跳动" perception */
+
+/* Leave space for the avatar overlap below the hero */
+#home {
+    padding-top: 4.2rem !important;
 }
 
 @media screen and (max-width: 991px) {
     #avatar {
-        margin: 0;
+        right: 1rem;
+        bottom: -64px;
     }
 
     #home>.container,
