@@ -1,19 +1,19 @@
-### **“强化学习与具身智能科研实践”科研实训**
+### **“强化学习与具身智能科研实践”科研实训（NJU-LAMDA-RLlab）**
 
 **2025年11月 – 至今** 
 
-在南京大学人工智能学院LAMDA实验室RL Lab进行科研实训，围绕安全强化学习、多智能体强化学习与具身智能相关问题开展系统研究，重点关注智能体在复杂真实场景中的安全性与泛化能力。
+在南京大学人工智能学院LAMDA实验室RL Lab进行科研实训，围绕RL(离线强化学习、安全强化学习与多智能体)与具身智能相关领域开展研究，主要关注智能体在复杂真实场景中的安全性与泛化能力。
 
-#### 主要科研方向:
+#### 科研方向与兴趣:
 
 - 离线强化学习与安全强化学习
 - 多智能体强化学习
-- VLA与世界模型
+- VLA
 
 #### 主要工作:
 
-- 算法调研与改进：深入研读Safe RL与Offline RL前沿论文并进行组会汇报，复现比较多智能体协作算法作为baseline，初步搭建benchmark，探索Transformer、Diffusion Model等生成式模型在安全多智能体强化学习中的应用
-- 具身智能探索：参与VLA与世界模型相关文章预研，调研WAM等模型架构并完成汇报，协助机器人遥操数据收集与仿真环境搭建
+- 算法调研与改进：深入研读Safe RL与Offline RL前沿论文并进行组会汇报，复现比较多智能体算法作为baseline，目前正在探索生成模型在多智能体中的应用
+- 具身智能探索：参与VLA相关文章调研并汇报，协助机器人遥操数据收集与仿真环境搭建
 
 ---
 
@@ -23,7 +23,7 @@
 
 Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decision-making and generalization in real-world embodied settings.
 
-#### Key Research Directions:
+#### Key Research Directions and Interests:
 
 * Offline reinforcement learning and safe reinforcement learning
 * Multi-agent reinforcement learning
@@ -32,7 +32,7 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 #### Key Work:
 
 * Studied and presented frontier Safe RL and Offline RL papers; reproduced multi-agent cooperation baselines and built an initial benchmark.
-* Explored generative models (Transformer, Diffusion) for safe multi-agent RL, and supported VLA/world-model pre-study, teleoperation data collection, and simulation setup.
+* Explored generative models for multi-agent RL, and supported VLA pre-study, teleoperation data collection, and simulation setup.
 
 ---
 
@@ -40,26 +40,24 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 
 **2025年9月 – 2025年12月**
 
-面向大规模数据分析任务进行数据挖掘与可视化方法研究，重点探索基于视觉感知的先进采样策略在数据可视化中的应用。
+面向大规模数据分析任务进行数据挖掘与可视化方法研究，重点探索基于人类视觉感知的先进采样算法在数据可视化中的应用。
 
 #### 主要工作:
 
-- 针对大规模数据集开展数据挖掘与模式分析，完成从数据处理到结果解释的分析流程
-- 利用基于视觉感知的先进采样方法进行数据可视化建模与效果评估
+- 针对大规模数据集开展数据挖掘与可视化分析，完成从数据处理到结果解释的分析流程
 - 参与论文撰写，形成一篇在投工作（IEEE VIS 2026）
 
 ---
 
 #### **"Large-Scale Data Intelligence Analysis and Visualization" Research Practice"**
 
-**September 2025 – December 2025 |School of Intelligence Science and Technology, Nanjing University**
+**September 2025 – December 2025**
 
-Research practice on large-scale data mining and visualization, with emphasis on visual-perception-based sampling methods.
+Research practice on large-scale data mining and visualization, with emphasis on human-visual-perception-based sampling methods.
 
 #### Key Work:
 
 * Completed end-to-end data mining and pattern analysis from preprocessing to interpretation.
-* Applied and evaluated advanced visual-perception-based sampling for visualization.
 * Contributed to a paper submission to IEEE VIS 2026.
 
 ---
@@ -68,7 +66,7 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 **2024年9月 – 2025年11月** 
 
-负责巡检机器人SLAM算法与导航框架实现与复用，在ROS仿真环境下完成巡检机器人自主移动全流程。参与将深度强化学习引入导航框架并优化系统流程，以提升复杂场景下的导航避障效果。
+负责巡检机器人SLAM算法与导航框架实现与复用，在ROS仿真环境下完成巡检机器人自主移动全流程。参与将深度强化学习引入导航框架并优化系统框架，以提升复杂场景下的导航避障效果。
 
 #### 主要贡献:
 
@@ -80,7 +78,7 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 #### **"A Novel Navigation Control Method in Complex Scenarios" Project**
 
-**September 2024 – November 2025 | School of Management and Engineering, Nanjing University**
+**September 2024 – November 2025**
 
 Implemented and reused SLAM and navigation frameworks for inspection robots, and completed a full autonomous navigation pipeline in ROS simulation.
 

@@ -8,7 +8,7 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 
 #### Education
 
-**南京大学**，本科生（大三）
+**南京大学**，本科（大三）
 
 **Nanjing University**, undergraduate student(junior)
 
@@ -18,4 +18,4 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 
 #### Interests in Study
 
-Automation | RL | VLA | Optimization |
+RL | VLA | Automation | Optimization 
