@@ -91,6 +91,7 @@ function initFxCanvas() {
     let w = 0;
     let h = 0;
     let points = [];
+    const mouse = { x: -9999, y: -9999, active: false };
 
     const resize = () => {
         w = Math.floor(window.innerWidth);
@@ -101,7 +102,7 @@ function initFxCanvas() {
         canvas.style.height = `${h}px`;
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-        const count = Math.max(28, Math.min(70, Math.floor((w * h) / 35000)));
+        const count = Math.max(32, Math.min(86, Math.floor((w * h) / 32000)));
         points = Array.from({ length: count }).map(() => ({
             x: Math.random() * w,
             y: Math.random() * h,
@@ -139,7 +140,12 @@ function initFxCanvas() {
         }
         ctx.restore();
 
-        // Floating points
+        // Floating points + mouse interaction + connections
+        const maxLinkDist = 165;
+        const maxLinkDist2 = maxLinkDist * maxLinkDist;
+        const repelR = 180;
+        const repelR2 = repelR * repelR;
+
         points.forEach(p => {
             p.x += p.vx * dt;
             p.y += p.vy * dt;
@@ -148,20 +154,120 @@ function initFxCanvas() {
             if (p.y < -20) p.y = h + 20;
             if (p.y > h + 20) p.y = -20;
 
+            if (mouse.active) {
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
+                const d2 = dx * dx + dy * dy;
+                if (d2 < repelR2 && d2 > 0.001) {
+                    const d = Math.sqrt(d2);
+                    const f = (1 - d / repelR) * 0.020;
+                    p.x += (dx / d) * f * dt;
+                    p.y += (dy / d) * f * dt;
+                }
+            }
+
             ctx.beginPath();
             ctx.fillStyle = `rgba(143, 106, 43, ${p.a})`;
             ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
             ctx.fill();
         });
 
+        // Connections (O(n^2) but n is small; keep it subtle)
+        ctx.save();
+        ctx.lineWidth = 1;
+        for (let i = 0; i < points.length; i++) {
+            const a = points[i];
+            for (let j = i + 1; j < points.length; j++) {
+                const b = points[j];
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                const d2 = dx * dx + dy * dy;
+                if (d2 < maxLinkDist2) {
+                    const alpha = (1 - d2 / maxLinkDist2) * 0.10;
+                    ctx.strokeStyle = `rgba(31, 63, 102, ${alpha})`;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(b.x, b.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        ctx.restore();
+
         window.requestAnimationFrame(draw);
     };
 
     resize();
     window.addEventListener('resize', resize, { passive: true });
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+    }, { passive: true });
+    window.addEventListener('mouseleave', () => {
+        mouse.active = false;
+    }, { passive: true });
     window.requestAnimationFrame(draw);
 }
 
+function initHeroParallax() {
+    if (prefersReducedMotion()) {
+        return;
+    }
+    const hero = document.querySelector('.top-section');
+    if (!hero) {
+        return;
+    }
+    let rafId = 0;
+    const update = () => {
+        rafId = 0;
+        const y = window.scrollY || 0;
+        // Subtle: move background a bit slower than scroll
+        const posY = Math.round(50 + Math.min(14, y * 0.02));
+        hero.style.backgroundPosition = `center ${posY}%`;
+    };
+    window.addEventListener('scroll', () => {
+        if (!rafId) {
+            rafId = window.requestAnimationFrame(update);
+        }
+    }, { passive: true });
+    update();
+}
+
+function initTilt() {
+    if (prefersReducedMotion()) {
+        return;
+    }
+    const targets = Array.from(document.querySelectorAll('#avatar img, #experience-md .experience-item'));
+    targets.forEach(el => el.classList.add('tilt'));
+
+    const attach = (el) => {
+        let rafId = 0;
+        let rx = 0, ry = 0;
+        const max = 6; // degrees
+
+        const apply = () => {
+            rafId = 0;
+            el.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-1px)`;
+        };
+
+        el.addEventListener('mousemove', (e) => {
+            const r = el.getBoundingClientRect();
+            const px = (e.clientX - r.left) / r.width;
+            const py = (e.clientY - r.top) / r.height;
+            ry = (px - 0.5) * max * 2;
+            rx = -(py - 0.5) * max * 2;
+            if (!rafId) rafId = window.requestAnimationFrame(apply);
+        });
+
+        el.addEventListener('mouseleave', () => {
+            rx = 0; ry = 0;
+            el.style.transform = '';
+        });
+    };
+
+    targets.forEach(attach);
+}
 
 function buildExperienceAccordion() {
     const container = document.getElementById('experience-md');
@@ -301,10 +407,12 @@ window.addEventListener('DOMContentLoaded', event => {
                 // MathJax
                 MathJax.typeset();
                 initReveal();
+                initTilt();
             })
             .catch(error => console.log(error));
     })
 
     initSpotlight();
     initFxCanvas();
+    initHeroParallax();
 }); 
