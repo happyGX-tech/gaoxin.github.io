@@ -36,7 +36,7 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 
 ---
 
-### **“大规模数据智能分析与可视化”科研实训**
+<!-- ### **“大规模数据智能分析与可视化”科研实训**
 
 **2025年9月 – 2025年12月**
 
@@ -60,7 +60,7 @@ Research practice on large-scale data mining and visualization, with emphasis on
 * Completed end-to-end data mining and pattern analysis from preprocessing to interpretation.
 * Contributed to a paper submission to IEEE VIS 2026.
 
----
+--- -->
 
 ### **“复杂场景导航控制新方法”项目实训**
 
