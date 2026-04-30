@@ -1,7 +1,5 @@
 ### **“强化学习与具身智能科研实践”科研实训**
 
-**2025年11月 – 至今**
-
 在南京大学人工智能学院LAMDA实验室RL Lab进行科研实训，围绕RL(离线强化学习、安全强化学习与多智能体)与具身智能相关领域开展研究，主要关注智能体在复杂真实场景中的安全性与泛化能力。
 
 #### 科研方向与兴趣:
@@ -19,7 +17,6 @@
 
 #### **"Reinforcement Learning and Embodied Intelligence Research Practice"**
 
-**November 2025 – Present | RL Lab, LAMDA, Nanjing University**
 
 Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decision-making and generalization in real-world embodied settings.
 
@@ -27,7 +24,7 @@ Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decisi
 
 * Offline reinforcement learning and safe reinforcement learning
 * Multi-agent reinforcement learning
-* VLA and world models
+* VLA 
 
 #### Key Work:
 
@@ -64,7 +61,6 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 ### **“复杂场景导航控制新方法”项目实训**
 
-**2024年9月 – 2025年11月**
 
 负责巡检机器人SLAM算法与导航框架实现与复用，在ROS仿真环境下完成巡检机器人自主移动全流程。参与将深度强化学习引入导航框架并优化系统框架，以提升复杂场景下的导航避障效果。
 
@@ -78,7 +74,6 @@ Research practice on large-scale data mining and visualization, with emphasis on
 
 #### **"A Novel Navigation Control Method in Complex Scenarios" Project**
 
-**September 2024 – November 2025**
 
 Implemented and reused SLAM and navigation frameworks for inspection robots, and completed a full autonomous navigation pipeline in ROS simulation.
 
