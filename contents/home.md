@@ -12,10 +12,10 @@ I am currently studying in the Industrial Intelligence and Systems Integration E
 
 **Nanjing University**, undergraduate student(junior)
 
-* GPA（专业课）： 4.64
+* GPA（专业课）： 4.65
 * Rank：2/17
 * CET-4(622)   CET-6(562)
 
 #### Interests in Study
 
-RL | VLA | Automation | Optimization 
+RL | VLA | Automation | Optimization
