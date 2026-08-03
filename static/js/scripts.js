@@ -2,7 +2,7 @@ const content_dir = 'contents/'
 const config_file = 'config.yml'
 const section_names = ['home', 'experience', 'awards', 'publications'];
 
-function buildExperienceAccordion() {
+function buildExperienceCards() {
     const container = document.getElementById('experience-md');
     if (!container) {
         return;
@@ -48,37 +48,31 @@ function buildExperienceAccordion() {
     container.innerHTML = '';
 
     groups.forEach((group, index) => {
-        const detail = document.createElement('details');
-        detail.className = 'experience-item';
+        const card = document.createElement('article');
+        card.className = 'experience-card';
 
-        const summary = document.createElement('summary');
-        summary.className = 'experience-summary';
-        summary.innerHTML = group.title.innerHTML;
-        detail.appendChild(summary);
+        const title = document.createElement('h3');
+        title.className = 'experience-card-title';
+        title.innerHTML = group.title.innerHTML;
 
-        const content = document.createElement('div');
-        content.className = 'experience-content';
-
+        const body = document.createElement('div');
+        body.className = 'experience-card-body';
         group.content.forEach(node => {
-            const shouldSkipDivider = node.nodeType === Node.ELEMENT_NODE && node.tagName === 'HR';
-            if (!shouldSkipDivider) {
-                content.appendChild(node);
+            const isDivider = node.nodeType === Node.ELEMENT_NODE && node.tagName === 'HR';
+            if (!isDivider) {
+                body.appendChild(node);
             }
         });
 
-        detail.appendChild(content);
+        const link = document.createElement('a');
+        link.className = 'experience-card-link';
+        link.href = 'experience.html?id=' + (index + 1);
+        link.textContent = '查看详情 →';
 
-        detail.addEventListener('toggle', () => {
-            if (detail.open) {
-                container.querySelectorAll('.experience-item').forEach(item => {
-                    if (item !== detail) {
-                        item.open = false;
-                    }
-                });
-            }
-        });
-
-        container.appendChild(detail);
+        card.appendChild(title);
+        card.appendChild(body);
+        card.appendChild(link);
+        container.appendChild(card);
     });
 }
 
@@ -127,19 +121,57 @@ window.addEventListener('DOMContentLoaded', event => {
 
     // Marked
     marked.use({ mangle: false, headerIds: false })
-    section_names.forEach((name, idx) => {
+    Promise.all(section_names.map(name =>
         fetch(content_dir + name + '.md')
             .then(response => response.text())
             .then(markdown => {
                 const html = marked.parse(markdown);
                 document.getElementById(name + '-md').innerHTML = html;
                 if (name === 'experience') {
-                    buildExperienceAccordion();
+                    buildExperienceCards();
                 }
-            }).then(() => {
-                // MathJax
-                MathJax.typeset();
             })
-            .catch(error => console.log(error));
-    })
-}); 
+            .catch(error => console.log(error))
+    )).then(() => {
+        // MathJax
+        MathJax.typeset();
+        initReveal();
+    });
+});
+
+function initReveal() {
+    const targets = [];
+
+    document.querySelectorAll('section header').forEach(header => {
+        header.classList.add('reveal');
+        targets.push(header);
+    });
+
+    document.querySelectorAll('.main-body').forEach(body => {
+        Array.from(body.children).forEach((el, index) => {
+            el.classList.add('reveal');
+            el.style.setProperty('--d', (index * 70) + 'ms');
+            targets.push(el);
+        });
+    });
+
+    if (targets.length === 0) {
+        return;
+    }
+
+    if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('reveal-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+
+    targets.forEach(el => observer.observe(el));
+}

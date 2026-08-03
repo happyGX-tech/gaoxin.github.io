@@ -1,84 +1,17 @@
-### **“强化学习与具身智能科研实践”科研实训**
+### **具身智能与强化学习科研实践**
 
-在南京大学人工智能学院LAMDA实验室RL Lab进行科研实训，围绕RL(离线强化学习、安全强化学习与多智能体)与具身智能相关领域开展研究，主要关注智能体在复杂真实场景中的安全性与泛化能力。
+在南京大学 LAMDA 实验室进组科研，围绕离线/安全强化学习、多智能体与 VLA 具身智能展开研究。
 
-#### 科研方向与兴趣:
+Research at LAMDA Lab (Nanjing University) on offline/safe RL, multi-agent RL and VLA embodied intelligence.
 
-- 离线强化学习与安全强化学习
-- 多智能体强化学习
-- VLA
+### **复杂场景导航控制新方法（省级大创）**
 
-#### 主要工作:
+巡检机器人 SLAM 与自主导航，基于 ROS 实现从建图到自主避障的全流程闭环。
 
-- 算法调研与改进：深入研读Safe RL与Offline RL前沿论文并进行组会汇报，复现比较多智能体算法作为baseline，目前正在探索生成模型在多智能体中的应用
-- 具身智能探索：参与VLA相关文章调研并汇报，协助机器人遥操数据收集与仿真环境搭建
+SLAM and autonomous navigation for inspection robots — a ROS-based full pipeline from mapping to obstacle avoidance.
 
----
+### **数据智能与可视化交互研究**
 
-#### **"Reinforcement Learning and Embodied Intelligence Research Practice"**
+基于人类视觉感知的大规模散点数据集采样与可视化，构建前后端可视化系统。
 
-
-Research training at RL Lab (LAMDA), Nanjing University, focusing on safe decision-making and generalization in real-world embodied settings.
-
-#### Key Research Directions and Interests:
-
-* Offline reinforcement learning and safe reinforcement learning
-* Multi-agent reinforcement learning
-* VLA 
-
-#### Key Work:
-
-* Studied and presented frontier Safe RL and Offline RL papers; reproduced multi-agent cooperation baselines and built an initial benchmark.
-* Explored generative models for multi-agent RL, and supported VLA pre-study, teleoperation data collection, and simulation setup.
-
----
-
-<!-- ### **“大规模数据智能分析与可视化”科研实训**
-
-**2025年9月 – 2025年12月**
-
-面向大规模数据分析任务进行数据挖掘与可视化方法研究，重点探索基于人类视觉感知的先进采样算法在数据可视化中的应用。
-
-#### 主要工作:
-
-- 针对大规模数据集开展数据挖掘与可视化分析，完成从数据处理到结果解释的分析流程
-- 参与论文撰写，形成一篇在投工作（IEEE VIS 2026）
-
----
-
-#### **"Large-Scale Data Intelligence Analysis and Visualization" Research Practice"**
-
-**September 2025 – December 2025**
-
-Research practice on large-scale data mining and visualization, with emphasis on human-visual-perception-based sampling methods.
-
-#### Key Work:
-
-* Completed end-to-end data mining and pattern analysis from preprocessing to interpretation.
-* Contributed to a paper submission to IEEE VIS 2026.
-
---- -->
-
-### **“复杂场景导航控制新方法”项目实训**
-
-
-负责巡检机器人SLAM算法与导航框架实现与复用，在ROS仿真环境下完成巡检机器人自主移动全流程。参与将深度强化学习引入导航框架并优化系统框架，以提升复杂场景下的导航避障效果。
-
-#### 主要贡献:
-
-- 架构设计：基于ROS搭建机器人仿真环境，实现从建图到自主避障的全流程闭环
-- 算法优化：针对动态障碍物场景引入强化学习方法，在Gazebo仿真中显著提升导航避障成功率
-- 性能对比：系统比较RL方法与传统方法在局部导航避障中的性能差异，撰写综述报告一篇，为后续算法选型提供依据
-
----
-
-#### **"A Novel Navigation Control Method in Complex Scenarios" Project**
-
-
-Implemented and reused SLAM and navigation frameworks for inspection robots, and completed a full autonomous navigation pipeline in ROS simulation.
-
-#### Key Contributions:
-
-* Built a ROS-based closed-loop pipeline from mapping to autonomous obstacle avoidance.
-* Introduced RL methods for dynamic-obstacle scenarios and improved avoidance success rates in Gazebo.
-* Compared RL and conventional methods for local obstacle avoidance and completed a review report for method selection.
+Visual-saliency-based sampling and visualization of large-scale scatter datasets.

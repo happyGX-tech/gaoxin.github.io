@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Academic Webpage" />
+    <meta name="description" content="GaoXin 高昕 — Nanjing University. Offline / safe reinforcement learning, embodied intelligence, optimization." />
     <meta name="author" content="yixin0313" />
     <title id="title"></title>
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GaoXin 高昕 — Do Research in Cross-Disciplinary" />
+    <meta property="og:description" content="Undergraduate at Nanjing University. Research in offline / safe reinforcement learning, embodied intelligence and optimization." />
+    <meta property="og:image" content="static/assets/img/background.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Icon -->
     <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
@@ -16,20 +23,17 @@
 
     <!-- Google fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=Noto+Serif+SC:wght@400;600;700&amp;display=swap"
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap"
         rel="stylesheet" />
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link type="text/css" href="static/css/styles.css" rel="stylesheet" />
-    <link type="text/css" href="static/css/main.css" rel="stylesheet" />
+    <link type="text/css" href="static/css/main.css?v=2" rel="stylesheet" />
 
     <!-- Bootstrap core JS-->
     <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
-
-    <!-- For Compatability -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
     <!-- Markdown -->
     <script type="text/javascript" src="static/js/marked.min.js"></script>
@@ -65,18 +69,19 @@
             }
         };
     </script>
-    <script type="text/javascript" id="MathJax-script"
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- Core JS-->
-    <script type="text/javascript" src="static/js/scripts.js"></script>
+    <script type="text/javascript" src="static/js/particles.js?v=2"></script>
+    <script type="text/javascript" src="static/js/scripts.js?v=2"></script>
     <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
 
 </head>
 
 <body id="page-top">
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+    <a class="skip-link" href="#home">跳到主要内容</a>
     <!-- Navigation-->
     <nav class="header navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
         <div class="container px-5">
@@ -93,91 +98,88 @@
                         <a class="nav-link me-lg-3" href="#home">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="#experience">EXPERIENCE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="#awards">AWARDS</a>
+                        <a class="nav-link me-lg-3" href="#experience">RESEARCH EXPERIENCE</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link me-lg-3" href="#publications">PUBLICATIONS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-lg-3" href="#awards">AWARDS</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Top Section -->
-    <section class="top-section" style="background-image: url('static/assets/img/background.jpeg');">
-        <div class="top-section-content">
-            <div class="container px-5">
-                <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
-            </div>
-        </div>
-        <!-- Photo wrapper anchored to hero section bottom -->
-        <div class="container px-5 w-100 position-absolute start-50 translate-middle-x" style="bottom: 0; pointer-events: none;">
-            <div id="avatar" style="pointer-events: auto;">
-                <img class="shadow" src="static/assets/img/photo.png" loading="lazy" decoding="async" alt="Avatar">
-            </div>
-        </div>
-    </section>
-    <!-- Top Section -->
-
-    <!-- Home -->
-    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
+    <!-- Profile -->
+    <section class="profile" id="home">
         <div class="container px-5">
-            <header>
-                <h2 id="home-subtitle"> </h2>
-                <!-- <span class="bi bi-list"></span> -->
-            </header>
+            <div class="profile-inner">
+                <div class="profile-avatar">
+                    <img class="shadow" src="static/assets/img/photo.png" loading="lazy" decoding="async" alt="GaoXin 高昕的证件照">
+                </div>
+                <div class="profile-main">
+                    <p class="profile-kicker">Nanjing University </p>
+                    <h1 class="profile-name">高昕 <span class="en">GaoXin</span></h1>
+                    <p class="profile-role">工业智能与系统集成实验班</p>
+                    <p class="profile-meta">GPA 4.65· Rank 2/17 · CET-4 622 · CET-6 562</p>
+                    <p class="profile-interests"><span class="label">Research Interests</span> RL · Safe RL · VLA · · Optimization</p>
+                    <div class="profile-contacts">
+                        <a href="mailto:231830150@smail.nju.edu.cn">Email</a>
+                        <a href="https://github.com/happygx-tech">GitHub</a>
+                    </div>
+                </div>
+            </div>
             <div class="main-body" id="home-md"></div>
         </div>
     </section>
-    <!-- Home -->
+    <!-- Profile -->
 
     <!-- Experience -->
     <section class="bg-gradient-primary-to-secondary-dark mt5 md5" id="experience">
         <div class="container px-5">
             <header>
-                <h2 id="experience-subtitle"><i class="bi bi-briefcase-fill"></i> EXPERIENCE </h2>
+                <p class="kicker">Experience</p>
+                <h2 id="experience-subtitle">Research Experience</h2>
             </header>
             <div class="main-body" id="experience-md"></div>
         </div>
     </section>
     <!-- Experience -->
 
-    <!-- Awards -->
-    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="awards">
-        <div class="container px-5">
-            <header>
-                <h2 id="awards-subtitle"><i class="bi bi-award-fill"></i>AWARDS </h2>
-            </header>
-            <div class="main-body" id="awards-md"></div>
-
-        </div>
-    </section>
-    <!-- Awards -->
-
     <!-- Publications -->
     <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="publications">
         <div class="container px-5">
             <header>
-                <h2 id="publications-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PUBLICATIONS</h2>
+                <p class="kicker">Academic Output</p>
+                <h2 id="publications-subtitle">Publications</h2>
             </header>
             <div class="main-body" id="publications-md"></div>
-
         </div>
     </section>
-    <!-- Publications  -->
+    <!-- Publications -->
+
+    <!-- Awards -->
+    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="awards">
+        <div class="container px-5">
+            <header>
+                <p class="kicker">Recognition</p>
+                <h2 id="awards-subtitle">Awards</h2>
+            </header>
+            <div class="main-body" id="awards-md"></div>
+        </div>
+    </section>
+    <!-- Awards -->
 
     <!-- Footer-->
     <footer class="bg-bottom text-center py-5">
         <div class="container px-5">
             <div class="text-white-50 small">
                 <div id="copyright-text" class="mb-2"></div>
-                <a id="github-link" href="https://github.com/senli1073">Github</a>
+                <a id="github-link" href="https://github.com/happygx-tech">Github</a>
                 <span class="mx-1">&middot;</span>
                 <a id="license-link"
-                    href="https://github.com/senli1073/senli1073.github.io/blob/main/LICENSE">License</a>
+                    href="https://github.com/happygx-tech/gaoxin.github.io/blob/main/LICENSE">License</a>
             </div>
         </div>
     </footer>
