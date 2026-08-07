@@ -12,6 +12,6 @@ SLAM and autonomous navigation for inspection robots — a ROS-based full pipeli
 
 ### **数据智能与可视化交互研究**
 
-基于人类视觉感知的大规模散点数据集采样与可视化，构建前后端可视化系统。
+作为团队负责人，以数据驱动机器学习综合多类分析模型，构建科技创新与社会变革多维分析网络，获中国大学生计算机设计大赛一等奖；并基于视觉感知与密度信息开展大规模散点数据交互分析。
 
-Visual-saliency-based sampling and visualization of large-scale scatter datasets.
+As team lead, built a multi-dimensional analysis network of technology innovation and social change with data-driven machine learning (First Prize, China Collegiate Computer Design Competition), and developed interactive analysis of large-scale scatter data based on visual perception.

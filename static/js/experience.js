@@ -6,11 +6,11 @@
         3: '数据智能与可视化交互研究'
     };
 
-    // 图片直接指定：路径与 static/assets/img/experience/ 下的文件保持一致
+    // 图片直接指定：路径与 static/assets/img/experience/ 下的文件保持一致；数组内按顺序自上而下展示
     const IMAGES = {
-        1: 'static/assets/img/experience/exp-1.jpg',
-        2: 'static/assets/img/experience/exp-2.jpg',
-        3: 'static/assets/img/experience/exp-3.png'
+        1: ['static/assets/img/experience/exp-1.jpg'],
+        2: ['static/assets/img/experience/exp-2.jpg'],
+        3: ['static/assets/img/experience/exp-3.png', 'static/assets/img/experience/exp-3-2.png']
     };
 
     let container = null;
@@ -20,20 +20,37 @@
         if (!media) {
             return;
         }
-        const path = IMAGES[id];
-        if (!path) {
+        const paths = IMAGES[id];
+        if (!paths || paths.length === 0) {
             media.classList.add('is-empty');
             return;
         }
-        const img = document.createElement('img');
-        img.src = path;
-        img.alt = '';
-        img.loading = 'lazy';
-        img.onerror = function () {
-            img.style.display = 'none';
-            media.classList.add('is-empty');
+
+        let completed = 0;
+        let anyVisible = false;
+
+        const maybeEmpty = function () {
+            completed += 1;
+            if (completed === paths.length && !anyVisible) {
+                media.classList.add('is-empty');
+            }
         };
-        media.appendChild(img);
+
+        paths.forEach(function (path) {
+            const img = document.createElement('img');
+            img.alt = '';
+            img.loading = 'lazy';
+            img.onload = function () {
+                anyVisible = true;
+                maybeEmpty();
+            };
+            img.onerror = function () {
+                img.style.display = 'none';
+                maybeEmpty();
+            };
+            img.src = path;
+            media.appendChild(img);
+        });
     }
 
     function reveal() {

@@ -600,6 +600,10 @@ section .main-body {
     height: auto;
 }
 
+.experience-media img + img {
+    margin-top: 0.75rem;
+}
+
 .experience-media.is-empty {
     aspect-ratio: 16 / 10;
 }
