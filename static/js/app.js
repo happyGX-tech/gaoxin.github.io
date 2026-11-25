@@ -1,5 +1,5 @@
 /* Xin Gao homepage — i18n (EN default / ZH), 4 themes, particle toggle,
-   detail pages with research material figures. No runtime dependencies. */
+   detail pages rendered from inline data. No runtime dependencies. */
 (function () {
     'use strict';
 
@@ -50,10 +50,6 @@
             factPeriod: 'Period',
             factOutcome: 'Outcome',
             focusH: 'Focus',
-            materialsH: 'Research Materials',
-            figLabel: 'Fig.',
-            enlarge: 'Click to enlarge',
-            lightboxClose: 'Close',
             firstPrize: 'First Prize',
             ariaGithub: 'GitHub profile',
             ariaMotion: 'Toggle particle field',
@@ -104,10 +100,6 @@
             factPeriod: '时间',
             factOutcome: '成果',
             focusH: '研究关键词',
-            materialsH: '研究材料',
-            figLabel: '图',
-            enlarge: '点击放大',
-            lightboxClose: '关闭',
             firstPrize: '一等奖',
             ariaGithub: 'GitHub 主页',
             ariaMotion: '切换粒子动效',
@@ -133,10 +125,7 @@
                 ],
                 pubNote: 'Proposes Co3G — conservatism-controllable compositional guidance that significantly outperforms hard- and soft-constraint baselines on offline safe RL benchmarks.',
                 facts: { role: 'Member', period: '2025.11 — Present', outcome: 'NeurIPS 2026 (Accepted)' },
-                focus: ['Offline RL', 'Safe RL', 'MARL', 'VLA'],
-                media: [
-                    { src: 'static/assets/img/experience/exp-1.jpg', cap: 'SOMAD → SOMAP → SOMATT: safe offline multi-agent transfer for scalable MARL' }
-                ]
+                focus: ['Offline RL', 'Safe RL', 'MARL', 'VLA']
             },
             zh: {
                 title: '强化学习与具身智能科研实践',
@@ -150,10 +139,7 @@
                 ],
                 pubNote: '提出 Co3G 方法（保守度可控的组合引导），在离线安全强化学习基准上显著优于硬约束与软约束基线。',
                 facts: { role: '成员', period: '2025.11 — 至今', outcome: 'NeurIPS 2026（已录用）' },
-                focus: ['离线强化学习', '安全强化学习', '多智能体', 'VLA'],
-                media: [
-                    { src: 'static/assets/img/experience/exp-1.jpg', cap: 'SOMAD → SOMAP → SOMATT：面向可扩展多智能体的安全离线迁移框架' }
-                ]
+                focus: ['离线强化学习', '安全强化学习', '多智能体', 'VLA']
             }
         },
         2: {
@@ -170,11 +156,7 @@
                 awardName: 'China Collegiate Computing Competition',
                 awardNote: 'First Prize (national level) for the data-driven analysis network of technology innovation and social change, providing data support and interpretable paths for research innovation and social development in the big-data era.',
                 facts: { role: 'Team Lead', period: '2025.03 — 2025.07', outcome: 'National First Prize' },
-                focus: ['Data-Driven ML', 'Visual Saliency', 'Sampling', 'Visualization'],
-                media: [
-                    { src: 'static/assets/img/experience/exp-3-2.webp', cap: 'ZoomScatter: saliency-based sampling and interactive exploration of 14M-point scatter data' },
-                    { src: 'static/assets/img/experience/exp-3.webp', cap: 'First Prize certificate, 18th China Collegiate Computing Competition (2025)' }
-                ]
+                focus: ['Data-Driven ML', 'Visual Saliency', 'Sampling', 'Visualization']
             },
             zh: {
                 title: '数据智能与可视化交互研究',
@@ -189,11 +171,7 @@
                 awardName: '中国大学生计算机设计大赛',
                 awardNote: '以数据驱动的科技创新与社会变革分析网络获全国一等奖，为大数据时代的科研创新与社会变化发展路径提供数据支撑与可解释路径。',
                 facts: { role: '团队负责人', period: '2025.03 — 2025.07', outcome: '全国一等奖' },
-                focus: ['数据驱动机器学习', '视觉显著性', '采样算法', '交互可视化'],
-                media: [
-                    { src: 'static/assets/img/experience/exp-3-2.webp', cap: 'ZoomScatter：千万级散点数据的显著性采样与交互探索系统' },
-                    { src: 'static/assets/img/experience/exp-3.webp', cap: '第18届中国大学生计算机设计大赛一等奖证书（2025）' }
-                ]
+                focus: ['数据驱动机器学习', '视觉显著性', '采样算法', '交互可视化']
             }
         }
     };
@@ -332,14 +310,7 @@
         html += '</article>';
 
         html += '<aside class="detail-aside">';
-        html += '<div class="media-card reveal"><h3 class="media-h">' + esc(dict.materialsH) + '</h3>' + d.media.map(function (f, i) {
-            return '<button class="media-fig" type="button" data-src="' + f.src + '" data-cap="' + esc(f.cap) + '">' +
-                '<span class="media-imgwrap"><img src="' + f.src + '" alt="' + esc(f.cap) + '" loading="eager" decoding="async">' +
-                '<span class="media-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span></span>' +
-                '<span class="media-cap"><span class="media-idx">' + esc(dict.figLabel) + ' 0' + (i + 1) + '</span><span>' + esc(f.cap) + '</span></span>' +
-                '</button>';
-        }).join('') + '</div>';
-        html += '<div class="facts-card reveal" style="--d:90ms"><h3>' + esc(dict.factsH) + '</h3>' +
+        html += '<div class="facts-card reveal"><h3>' + esc(dict.factsH) + '</h3>' +
             '<div class="fact-row"><span class="k">' + esc(dict.factRole) + '</span><span class="v">' + esc(d.facts.role) + '</span></div>' +
             '<div class="fact-row"><span class="k">' + esc(dict.factPeriod) + '</span><span class="v">' + esc(d.facts.period) + '</span></div>' +
             '<div class="fact-row"><span class="k">' + esc(dict.factOutcome) + '</span><span class="v">' + esc(d.facts.outcome) + '</span></div>' +
@@ -356,59 +327,6 @@
                 el.style.animation = '';
             });
         }
-    }
-
-    /* ------------------------------------------------------------------ */
-    /* Lightbox for research material figures                              */
-    /* ------------------------------------------------------------------ */
-    var lb = { el: null, img: null, cap: null, lastFocus: null, timer: 0 };
-
-    function ensureLightbox() {
-        if (lb.el) return;
-        var el = document.createElement('div');
-        el.className = 'lightbox';
-        el.setAttribute('role', 'dialog');
-        el.setAttribute('aria-modal', 'true');
-        el.hidden = true;
-        el.innerHTML = '<div class="lightbox-scrim" data-lb-close></div>' +
-            '<figure class="lightbox-figure">' +
-            '<img alt="" />' +
-            '<figcaption class="lightbox-cap"><span></span>' +
-            '<button class="icon-btn lightbox-close" type="button" data-lb-close>' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>' +
-            '</button></figcaption></figure>';
-        document.body.appendChild(el);
-        lb.el = el;
-        lb.img = el.querySelector('img');
-        lb.cap = el.querySelector('.lightbox-cap span');
-        var closeBtn = el.querySelector('.lightbox-close');
-        closeBtn.setAttribute('data-i18n-aria', 'lightboxClose');
-        closeBtn.setAttribute('aria-label', t().lightboxClose);
-        el.addEventListener('click', function (e) {
-            if (e.target.closest('[data-lb-close]')) closeLightbox();
-        });
-    }
-
-    function openLightbox(src, cap) {
-        ensureLightbox();
-        clearTimeout(lb.timer);
-        lb.lastFocus = document.activeElement;
-        lb.img.src = src;
-        lb.img.alt = cap;
-        lb.cap.textContent = cap;
-        lb.el.hidden = false;
-        requestAnimationFrame(function () { lb.el.classList.add('open'); });
-        document.body.style.overflow = 'hidden';
-        lb.el.querySelector('.lightbox-close').focus();
-    }
-
-    function closeLightbox() {
-        if (!lb.el || lb.el.hidden) return;
-        lb.el.classList.remove('open');
-        document.body.style.overflow = '';
-        var el = lb.el;
-        lb.timer = setTimeout(function () { if (!el.classList.contains('open')) el.hidden = true; }, 220);
-        if (lb.lastFocus && lb.lastFocus.focus) lb.lastFocus.focus();
     }
 
     /* ------------------------------------------------------------------ */
@@ -453,14 +371,6 @@
         });
         var mt = document.getElementById('motion-toggle');
         if (mt) mt.addEventListener('click', function () { applyMotion(!state.motion, true); });
-
-        document.addEventListener('click', function (e) {
-            var fig = e.target.closest('.media-fig');
-            if (fig) openLightbox(fig.dataset.src, fig.dataset.cap);
-        });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeLightbox();
-        });
 
         if (document.body.dataset.page === 'home') initReveal(document);
     }
