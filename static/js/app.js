@@ -1,5 +1,6 @@
-/* Xin Gao homepage — i18n (EN default / ZH), 4 themes, particle toggle,
-   detail pages rendered from inline data. No runtime dependencies. */
+/* Xin Gao homepage — i18n (EN default / ZH), 4 themes, 3 typefaces,
+   particle toggle, section nav; detail pages rendered from inline data.
+   No runtime dependencies. */
 (function () {
     'use strict';
 
@@ -57,7 +58,14 @@
             themeLight: 'Graphite Light',
             themeDark: 'Graphite Dark',
             themeViolet: 'NJU Violet',
-            themeOcean: 'Deep Ocean'
+            themeOcean: 'Deep Ocean',
+            navResearch: 'Research',
+            navPubs: 'Publications',
+            navAwards: 'Awards',
+            fontPickerLabel: 'Typeface',
+            fontSerif: 'Serif',
+            fontMono: 'Monospace',
+            fontSans: 'Sans-serif'
         },
         zh: {
             brand: '高昕',
@@ -107,7 +115,14 @@
             themeLight: '经典白',
             themeDark: '石墨黑',
             themeViolet: '南大紫',
-            themeOcean: '深海'
+            themeOcean: '深海',
+            navResearch: '科研经历',
+            navPubs: '论文发表',
+            navAwards: '奖项荣誉',
+            fontPickerLabel: '字体',
+            fontSerif: '衬线体',
+            fontMono: '等宽体',
+            fontSans: '无衬线体'
         }
     };
 
@@ -177,9 +192,11 @@
     };
 
     var THEMES = ['light', 'dark', 'violet', 'ocean'];
+    var FONTS = ['serif', 'mono', 'sans'];
     var state = {
         lang: localStorage.getItem('gx-lang') === 'zh' ? 'zh' : 'en',
         theme: THEMES.indexOf(localStorage.getItem('gx-theme')) >= 0 ? localStorage.getItem('gx-theme') : 'violet',
+        font: FONTS.indexOf(localStorage.getItem('gx-font')) >= 0 ? localStorage.getItem('gx-font') : 'serif',
         motion: localStorage.getItem('gx-motion') === '1'
     };
 
@@ -201,6 +218,18 @@
             b.setAttribute('aria-pressed', String(b.dataset.themeBtn === theme));
         });
         if (window.Particles) window.Particles.refresh();
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Typeface                                                            */
+    /* ------------------------------------------------------------------ */
+    function applyFont(font) {
+        state.font = font;
+        localStorage.setItem('gx-font', font);
+        document.documentElement.setAttribute('data-font', font);
+        document.querySelectorAll('[data-font-btn]').forEach(function (b) {
+            b.setAttribute('aria-pressed', String(b.dataset.fontBtn === font));
+        });
     }
 
     /* ------------------------------------------------------------------ */
@@ -258,6 +287,63 @@
             btn.querySelector('.ic-off').style.display = on ? 'none' : '';
         }
         if (window.Particles) { if (on) window.Particles.start(); else window.Particles.stop(); }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Section navigation (home only)                                      */
+    /* ------------------------------------------------------------------ */
+    function initNav() {
+        var links = Array.prototype.slice.call(document.querySelectorAll('.site-nav .nav-link[data-nav]'));
+        if (document.body.dataset.page !== 'home' || !links.length) return;
+        var header = document.querySelector('.site-header');
+        var sections = links.map(function (l) {
+            return document.getElementById(l.getAttribute('data-nav'));
+        }).filter(Boolean);
+        if (!sections.length) return;
+
+        function measure() {
+            if (header) {
+                document.documentElement.style.setProperty('--nav-h', header.offsetHeight + 'px');
+            }
+        }
+
+        function setActive(id) {
+            links.forEach(function (l) {
+                var on = l.getAttribute('data-nav') === id;
+                l.classList.toggle('is-active', on);
+                if (on) l.setAttribute('aria-current', 'true');
+                else l.removeAttribute('aria-current');
+            });
+        }
+
+        var lock = 0;
+        function update() {
+            if (Date.now() < lock) return;
+            var top = (header ? header.offsetHeight : 0) + 120;
+            var y = window.pageYOffset + top;
+            var active = sections[0].id;
+            sections.forEach(function (s) {
+                if (s.getBoundingClientRect().top + window.pageYOffset <= y) active = s.id;
+            });
+            setActive(active);
+        }
+
+        links.forEach(function (l) {
+            l.addEventListener('click', function () {
+                lock = Date.now() + 1200;
+                setActive(l.getAttribute('data-nav'));
+            });
+        });
+
+        var queued = false;
+        window.addEventListener('scroll', function () {
+            if (queued) return;
+            queued = true;
+            requestAnimationFrame(function () { queued = false; update(); });
+        }, { passive: true });
+        window.addEventListener('resize', function () { measure(); update(); });
+        measure();
+        update();
     }
 
     /* ------------------------------------------------------------------ */
@@ -358,11 +444,15 @@
     /* ------------------------------------------------------------------ */
     function boot() {
         applyTheme(state.theme, false);
+        applyFont(state.font);
         applyLang(state.lang, false);
         applyMotion(state.motion, false);
 
         document.querySelectorAll('.swatch').forEach(function (b) {
             b.addEventListener('click', function () { applyTheme(b.dataset.themeBtn, true); });
+        });
+        document.querySelectorAll('[data-font-btn]').forEach(function (b) {
+            b.addEventListener('click', function () { applyFont(b.dataset.fontBtn); });
         });
         document.querySelectorAll('.lang-toggle button').forEach(function (b) {
             b.addEventListener('click', function () {
@@ -372,7 +462,10 @@
         var mt = document.getElementById('motion-toggle');
         if (mt) mt.addEventListener('click', function () { applyMotion(!state.motion, true); });
 
-        if (document.body.dataset.page === 'home') initReveal(document);
+        if (document.body.dataset.page === 'home') {
+            initReveal(document);
+            initNav();
+        }
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

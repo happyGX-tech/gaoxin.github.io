@@ -17,7 +17,7 @@
 
     <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
     <link rel="preload" href="static/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="static/css/main.css?v=7" />
+    <link rel="stylesheet" href="static/css/main.css?v=8" />
 
     <script>
         (function () {
@@ -25,6 +25,9 @@
                 var t = localStorage.getItem('gx-theme');
                 if (['light', 'dark', 'violet', 'ocean'].indexOf(t) < 0) t = 'violet';
                 document.documentElement.setAttribute('data-theme', t);
+                var f = localStorage.getItem('gx-font');
+                if (['serif', 'mono', 'sans'].indexOf(f) < 0) f = 'serif';
+                document.documentElement.setAttribute('data-font', f);
                 document.documentElement.lang = localStorage.getItem('gx-lang') === 'zh' ? 'zh-CN' : 'en';
             } catch (e) { }
         })();
@@ -46,6 +49,12 @@
             <span class="brand-dot" aria-hidden="true"></span>
             <span data-i18n="brand">Xin Gao</span>
         </a>
+        <nav class="site-nav" aria-label="Sections">
+            <a class="nav-link" href="index.html#research" data-i18n="navResearch">Research</a>
+            <a class="nav-link" href="index.html#publications" data-i18n="navPubs">Publications</a>
+            <a class="nav-link" href="index.html#awards" data-i18n="navAwards">Awards</a>
+        </nav>
+
         <div class="header-controls">
             <button id="motion-toggle" class="icon-btn" type="button" aria-pressed="false" data-i18n-aria="ariaMotion" aria-label="Toggle ambient motion">
                 <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true" style="display:none">
@@ -62,6 +71,12 @@
                 <button class="swatch sw-dark" type="button" data-theme-btn="dark" aria-pressed="false" data-i18n-aria="themeDark" aria-label="Graphite Dark"></button>
                 <button class="swatch sw-violet" type="button" data-theme-btn="violet" aria-pressed="true" data-i18n-aria="themeViolet" aria-label="NJU Violet"></button>
                 <button class="swatch sw-ocean" type="button" data-theme-btn="ocean" aria-pressed="false" data-i18n-aria="themeOcean" aria-label="Deep Ocean"></button>
+            </div>
+
+            <div class="font-toggle" role="group" data-i18n-aria="fontPickerLabel" aria-label="Typeface">
+                <button class="ft-serif" type="button" data-font-btn="serif" aria-pressed="true" data-i18n-aria="fontSerif" aria-label="Serif">Aa</button>
+                <button class="ft-mono" type="button" data-font-btn="mono" aria-pressed="false" data-i18n-aria="fontMono" aria-label="Monospace">Aa</button>
+                <button class="ft-sans" type="button" data-font-btn="sans" aria-pressed="false" data-i18n-aria="fontSans" aria-label="Sans-serif">Aa</button>
             </div>
 
             <div class="lang-toggle" role="group" aria-label="Language">
@@ -91,7 +106,7 @@
     </footer>
 
     <script src="static/js/particles.js?v=6"></script>
-    <script src="static/js/app.js?v=8"></script>
+    <script src="static/js/app.js?v=9"></script>
 </body>
 
 </html>
