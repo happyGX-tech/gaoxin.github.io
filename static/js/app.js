@@ -172,8 +172,8 @@
                 facts: { role: 'Team Lead', period: '2025.03 — 2025.07', outcome: 'National First Prize' },
                 focus: ['Data-Driven ML', 'Visual Saliency', 'Sampling', 'Visualization'],
                 media: [
-                    { src: 'static/assets/img/experience/exp-3-2.png', cap: 'ZoomScatter: saliency-based sampling and interactive exploration of 14M-point scatter data' },
-                    { src: 'static/assets/img/experience/exp-3.png', cap: 'First Prize certificate, 18th China Collegiate Computing Competition (2025)' }
+                    { src: 'static/assets/img/experience/exp-3-2.webp', cap: 'ZoomScatter: saliency-based sampling and interactive exploration of 14M-point scatter data' },
+                    { src: 'static/assets/img/experience/exp-3.webp', cap: 'First Prize certificate, 18th China Collegiate Computing Competition (2025)' }
                 ]
             },
             zh: {
@@ -191,8 +191,8 @@
                 facts: { role: '团队负责人', period: '2025.03 — 2025.07', outcome: '全国一等奖' },
                 focus: ['数据驱动机器学习', '视觉显著性', '采样算法', '交互可视化'],
                 media: [
-                    { src: 'static/assets/img/experience/exp-3-2.png', cap: 'ZoomScatter：千万级散点数据的显著性采样与交互探索系统' },
-                    { src: 'static/assets/img/experience/exp-3.png', cap: '第18届中国大学生计算机设计大赛一等奖证书（2025）' }
+                    { src: 'static/assets/img/experience/exp-3-2.webp', cap: 'ZoomScatter：千万级散点数据的显著性采样与交互探索系统' },
+                    { src: 'static/assets/img/experience/exp-3.webp', cap: '第18届中国大学生计算机设计大赛一等奖证书（2025）' }
                 ]
             }
         }
@@ -334,7 +334,7 @@
         html += '<aside class="detail-aside">';
         html += '<div class="media-card reveal"><h3 class="media-h">' + esc(dict.materialsH) + '</h3>' + d.media.map(function (f, i) {
             return '<button class="media-fig" type="button" data-src="' + f.src + '" data-cap="' + esc(f.cap) + '">' +
-                '<span class="media-imgwrap"><img src="' + f.src + '" alt="' + esc(f.cap) + '" loading="lazy" decoding="async">' +
+                '<span class="media-imgwrap"><img src="' + f.src + '" alt="' + esc(f.cap) + '" loading="eager" decoding="async">' +
                 '<span class="media-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span></span>' +
                 '<span class="media-cap"><span class="media-idx">' + esc(dict.figLabel) + ' 0' + (i + 1) + '</span><span>' + esc(f.cap) + '</span></span>' +
                 '</button>';
