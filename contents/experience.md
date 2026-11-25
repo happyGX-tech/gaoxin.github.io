@@ -1,17 +1,15 @@
-### **具身智能与强化学习科研实践**
+### Reinforcement Learning & Embodied Intelligence / 强化学习与具身智能科研实践
 
-在南京大学 LAMDA 实验室进组科研，围绕离线/安全强化学习、多智能体与 VLA 具身智能展开研究。
+LAMDA Lab, Nanjing University · 2025.11 — Present
+Offline & safe RL, multi-agent systems, and VLA models for real-world robot settings.
 
-Research at LAMDA Lab (Nanjing University) on offline/safe RL, multi-agent RL and VLA embodied intelligence.
+南京大学 LAMDA 实验室 · 2025.11 — 至今
+离线/安全强化学习、多智能体系统与面向真实机器人的 VLA 模型研究。
 
-### **复杂场景导航控制新方法（省级大创）**
+### Data Intelligence & Interactive Visualization / 数据智能与可视化交互研究
 
-巡检机器人 SLAM 与自主导航，基于 ROS 实现从建图到自主避障的全流程闭环。
+Team Lead · 2025.03 — 2025.07
+A data-driven ML network analyzing technology innovation and social change; saliency-based sampling for large-scale scatter data.
 
-SLAM and autonomous navigation for inspection robots — a ROS-based full pipeline from mapping to obstacle avoidance.
-
-### **数据智能与可视化交互研究**
-
-作为团队负责人，以数据驱动机器学习综合多类分析模型，构建科技创新与社会变革多维分析网络，获中国大学生计算机设计大赛一等奖。
-
-As team lead, built a multi-dimensional analysis network of technology innovation and social change with data-driven machine learning (First Prize, China Collegiate Computer Design Competition).
+团队负责人 · 2025.03 — 2025.07
+以数据驱动机器学习构建科技创新与社会变革多维分析网络，研究大规模散点数据的显著性采样与交互可视化。

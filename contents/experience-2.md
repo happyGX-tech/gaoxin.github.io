@@ -1,21 +1,21 @@
-# 复杂场景导航控制新方法（省级大创）
+# Data Intelligence & Interactive Visualization / 数据智能与可视化交互研究
 
-在 IEEE Fellow 陈春林老师指导下，实现巡检机器人 SLAM 算法与自主导航框架，在 ROS 系统与仿真环境下完成巡检机器人自主移动的全流程。
+Team Lead · 2025.03 — 2025.07 · National First Prize
 
-#### 主要贡献
+Led a team building a multi-dimensional analysis network of technology innovation and social change with data-driven machine learning, winning First Prize in the China Collegiate Computing Competition. Also conducted intelligent, interactive analysis of enterprise-scale scatter datasets based on human visual perception and density information.
 
-- 架构设计：基于 ROS 搭建机器人仿真环境，实现从建图到自主避障的全流程闭环
-- 算法优化：针对动态障碍物场景引入强化学习方法，在 Gazebo 仿真中显著提升导航避障成功率
-- 性能对比：系统比较 RL 方法与传统方法在局部导航避障中的性能差异，撰写综述报告一篇，为后续算法选型提供依据
+作为团队负责人，组织团队以数据驱动的机器学习方式综合多类分析模型，构建科技创新与社会变革的多维度分析网络，获中国大学生计算机设计大赛一等奖；同时基于人类视觉感知与密度信息，对企业大规模散点数据集进行数据智能与交互分析。
 
----
+## Key Work / 主要工作
 
-### **A Novel Navigation Control Method in Complex Scenarios（Provincial Innovation Project）**
+- Organized the team to integrate multiple analytical models into a data-driven ML pipeline.
+- Surveyed literature and implemented visual-saliency-based sampling algorithms.
+- Designed and validated core sampling and visualization algorithms; co-built the full front-end/back-end system.
 
-Implemented and reused SLAM and navigation frameworks for inspection robots, and completed a full autonomous navigation pipeline in ROS simulation.
+- 组织团队以数据驱动机器学习方式综合多类分析模型，构建多维分析网络。
+- 调研文献，编写基于视觉显著性图的采样算法。
+- 负责核心采样与可视化算法的设计与验证，与合作者共同构建完整前后端可视化系统。
 
-#### Key Contributions
+## Award / 获奖
 
-- Built a ROS-based closed-loop pipeline from mapping to autonomous obstacle avoidance.
-- Introduced RL methods for dynamic-obstacle scenarios and improved avoidance success rates in Gazebo.
-- Compared RL and conventional methods for local obstacle avoidance and completed a review report for method selection.
+- First Prize, China Collegiate Computing Competition / 中国大学生计算机设计大赛一等奖 · 2025.07

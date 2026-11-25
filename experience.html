@@ -1,104 +1,97 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en" data-theme="violet">
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="GaoXin 高昕 — Experience. Research in offline/safe RL, embodied intelligence and optimization." />
-    <meta name="author" content="yixin0313" />
-    <title>Experience — GaoXin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Xin Gao — research experience in reinforcement learning, embodied intelligence, and data intelligence." />
+    <meta name="author" content="Xin Gao" />
+    <title>Research Experience — Xin Gao</title>
 
-    <!-- Open Graph / social sharing -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="GaoXin 高昕 — Research Experience" />
-    <meta property="og:description" content="GaoXin's research experience: offline/safe RL at LAMDA, autonomous navigation, data visualization." />
-    <meta property="og:image" content="static/assets/img/background.jpeg" />
+    <meta property="og:title" content="Research Experience — Xin Gao" />
+    <meta property="og:description" content="Reinforcement learning & embodied intelligence at LAMDA Lab; data intelligence and interactive visualization." />
+    <meta property="og:url" content="https://happygx-tech.github.io/gaoxin.github.io/experience.html" />
+    <meta property="og:image" content="https://happygx-tech.github.io/gaoxin.github.io/static/assets/img/og-cover.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Icon -->
     <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+    <link rel="preload" href="static/assets/fonts/geist-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="static/css/main.css?v=6" />
 
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-
-    <!-- Google fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&amp;family=Noto+Serif+SC:wght@400;500;600;700&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap"
-        rel="stylesheet" />
-
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link type="text/css" href="static/css/styles.css" rel="stylesheet" />
-    <link type="text/css" href="static/css/main.css?v=4" rel="stylesheet" />
-
-    <!-- Bootstrap core JS-->
-    <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Markdown -->
-    <script type="text/javascript" src="static/js/marked.min.js?v=3"></script>
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('gx-theme');
+                if (['light', 'dark', 'violet', 'ocean'].indexOf(t) < 0) t = 'violet';
+                document.documentElement.setAttribute('data-theme', t);
+                document.documentElement.lang = localStorage.getItem('gx-lang') === 'zh' ? 'zh-CN' : 'en';
+            } catch (e) { }
+        })();
+    </script>
 </head>
 
-<body id="page-top">
-    <canvas id="particles-canvas" aria-hidden="true"></canvas>
-    <a class="skip-link" href="#experience-detail">跳到主要内容</a>
-    <!-- Navigation-->
-    <nav class="header navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
-        <div class="container px-5">
-            <a class="navbar-brand fw-bold" href="index.html">GaoXin</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                MENU
-                <i class="bi-list"></i>
+<body data-page="detail">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="aurora" aria-hidden="true">
+        <div class="aurora-blob a"></div>
+        <div class="aurora-blob b"></div>
+        <div class="aurora-blob c"></div>
+    </div>
+
+    <a class="skip-link" href="#detail-root">Skip to content</a>
+
+    <header class="site-header enter">
+        <a class="brand" href="index.html">
+            <span class="brand-dot" aria-hidden="true"></span>
+            <span data-i18n="brand">Xin Gao</span>
+        </a>
+        <div class="header-controls">
+            <button id="motion-toggle" class="icon-btn" type="button" aria-pressed="false" data-i18n-aria="ariaMotion" aria-label="Toggle ambient motion">
+                <svg class="ic-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true" style="display:none">
+                    <path d="M12 3l2.2 6.8L21 12l-6.8 2.2L12 21l-2.2-6.8L3 12l6.8-2.2L12 3z" />
+                </svg>
+                <svg class="ic-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                    <line x1="9" y1="5" x2="9" y2="19" />
+                    <line x1="15" y1="5" x2="15" y2="19" />
+                </svg>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="index.html#home">HOME</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active me-lg-3" href="index.html#experience" aria-current="page">EXPERIENCE</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="index.html#publications">PUBLICATIONS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3" href="index.html#awards">AWARDS</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Experience detail -->
-    <section class="experience-detail-page" id="experience-detail-page">
-        <div class="container px-5">
-            <a class="experience-back" href="index.html#experience">&larr; 返回 Experience</a>
-            <div class="experience-detail-layout">
-                <div class="main-body experience-detail" id="experience-detail"></div>
-                <aside class="experience-side">
-                    <div class="experience-media" id="experience-media"></div>
-                </aside>
+            <div class="theme-picker" role="group" data-i18n-aria="themePickerLabel" aria-label="Color theme">
+                <button class="swatch sw-light" type="button" data-theme-btn="light" aria-pressed="false" data-i18n-aria="themeLight" aria-label="Graphite Light"></button>
+                <button class="swatch sw-dark" type="button" data-theme-btn="dark" aria-pressed="false" data-i18n-aria="themeDark" aria-label="Graphite Dark"></button>
+                <button class="swatch sw-violet" type="button" data-theme-btn="violet" aria-pressed="true" data-i18n-aria="themeViolet" aria-label="NJU Violet"></button>
+                <button class="swatch sw-ocean" type="button" data-theme-btn="ocean" aria-pressed="false" data-i18n-aria="themeOcean" aria-label="Deep Ocean"></button>
             </div>
-        </div>
-    </section>
-    <!-- Experience detail -->
 
-    <!-- Footer-->
-    <footer class="bg-bottom text-center py-5">
-        <div class="container px-5">
-            <div class="text-white-50 small">
-                <div class="mb-2">&copy; GaoXin 2023-2026. All Rights Reserved.</div>
-                <a href="https://github.com/happygx-tech">Github</a>
-                <span class="mx-1">&middot;</span>
-                <a href="https://github.com/happygx-tech/gaoxin.github.io/blob/main/LICENSE">License</a>
+            <div class="lang-toggle" role="group" aria-label="Language">
+                <button type="button" data-lang="en" aria-pressed="true">EN</button>
+                <button type="button" data-lang="zh" aria-pressed="false">中文</button>
             </div>
+
+            <a class="icon-btn" href="https://github.com/happygx-tech" target="_blank" rel="noopener" data-i18n-aria="ariaGithub" aria-label="GitHub profile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <main class="detail-main">
+        <div id="detail-root" aria-live="polite"></div>
+    </main>
+
+    <footer class="site-footer">
+        <span data-i18n="footerCopy">© 2023–2026 Xin Gao</span>
+        <div class="footer-links">
+            <a href="https://github.com/happygx-tech" target="_blank" rel="noopener">GitHub</a>
+            <span aria-hidden="true">&middot;</span>
+            <a href="https://github.com/happygx-tech/gaoxin.github.io/blob/main/LICENSE" target="_blank" rel="noopener" data-i18n="license">License</a>
         </div>
     </footer>
 
-    <!-- Core JS-->
-    <script type="text/javascript" src="static/js/particles.js?v=3"></script>
-    <script type="text/javascript" src="static/js/experience.js?v=4"></script>
+    <script src="static/js/particles.js?v=6"></script>
+    <script src="static/js/app.js?v=6"></script>
 </body>
 
 </html>
