@@ -1,5 +1,5 @@
-/* Xin Gao homepage — i18n (EN default / ZH), 4 themes, motion toggle,
-   detail pages with generative orbital art. No runtime dependencies. */
+/* Xin Gao homepage — i18n (EN default / ZH), 4 themes, particle toggle,
+   detail pages with research material figures. No runtime dependencies. */
 (function () {
     'use strict';
 
